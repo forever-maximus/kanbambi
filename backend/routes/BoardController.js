@@ -10,16 +10,26 @@ router.get('/', (req, res) => {
   });
 });
 
-// Create new kanban board
+// Create new kanban board - initialise 3 default state columns
 router.post('/', (req, res) => {
   if (!('name' in req.body)) {
     res.status(400).json({error: "Missing required field 'name'"});
+  } else if (!('description' in req.body)) {
+    res.status(400).json({error: "Missing required field 'description'"});
   } else {
     models.board.create({
-      'name': req.body.name,
+      name: req.body.name,
+      description: req.body.description,
+      state_columns: [
+        { name: 'To Do' },
+        { name: 'In Progress' },
+        { name: 'Done' },
+      ]
+    }, {
+      include: [ models.state_column ]
     }).then(board => {
       res.status(201).json({board: board});
-    })
+    });
   }
 });
 

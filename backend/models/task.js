@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var Board = sequelize.define('board', {
-    name: {
+  var Task = sequelize.define('task', {
+    title: {
       type: DataTypes.STRING
     },
     description: {
@@ -10,9 +10,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Board.associate = function(models) {
-    Board.hasMany(models.state_column);
-  }
-
-  return Board;
+  return Task;
 }
