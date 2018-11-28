@@ -1,38 +1,39 @@
 import axios from 'axios';
 
-export const GET_BOARDS_REQUEST = 'GET_BOARDS_REQUEST';
-function getBoardsRequest() {
+export const GET_BOARD_LIST_REQUEST = 'GET_BOARD_LIST_REQUEST';
+export const GET_BOARD_LIST_SUCCESS = 'GET_BOARD_LIST_SUCCESS';
+export const GET_BOARD_LIST_FAILURE = 'GET_BOARD_LIST_FAILURE';
+
+function getBoardListRequest() {
   return {
-    type: GET_BOARDS_REQUEST
+    type: GET_BOARD_LIST_REQUEST
   }
 }
 
-export const GET_BOARDS_SUCCESS = 'GET_BOARDS_SUCCESS';
-function getBoardsSuccess(boards) {
+function getBoardListSuccess(boards) {
   return {
-    type: GET_BOARDS_SUCCESS,
+    type: GET_BOARD_LIST_SUCCESS,
     boards
   }
 }
 
-export const GET_BOARDS_FAILURE = 'GET_BOARDS_FAILURE';
-function getBoardsFailure(error) {
+function getBoardListFailure(error) {
   return {
-    type: GET_BOARDS_FAILURE,
+    type: GET_BOARD_LIST_FAILURE,
     error
   }
 }
 
-export function getBoards() {
+export function getBoardList() {
   return (dispatch) => {
-    dispatch(getBoardsRequest());
+    dispatch(getBoardListRequest());
 
     axios.get('http://localhost:8080/boards')
       .then(response => {
-        dispatch(getBoardsSuccess(response.data.boards));
+        dispatch(getBoardListSuccess(response.data.boards));
       })
       .catch(error => {
-        dispatch(getBoardsFailure(error.message));
+        dispatch(getBoardListFailure(error.message));
       });
   }
 }

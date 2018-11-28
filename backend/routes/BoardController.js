@@ -4,9 +4,24 @@ var router = express.Router();
 
 router.use(express.json());
 
+// Get all kanban boards
 router.get('/', (req, res) => {
   models.board.findAll().then(boards => {
     res.json({boards: boards});
+  });
+});
+
+// Get specific kanban board and related components
+router.get('/:id', (req, res) => {
+  models.board.findByPk(req.params.id, {
+    include: [{
+      model: models.state_column, 
+      include: [{
+        model: models.task 
+      }]
+    }]
+  }).then(board => {
+    res.json({board: board});
   });
 });
 

@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux'
 import { 
-  GET_BOARDS_REQUEST, 
-  GET_BOARDS_SUCCESS, 
-  GET_BOARDS_FAILURE 
+  GET_BOARD_LIST_REQUEST, 
+  GET_BOARD_LIST_SUCCESS, 
+  GET_BOARD_LIST_FAILURE 
 } from '../actions/boardList';
 
 const initialState = {
@@ -11,21 +10,21 @@ const initialState = {
   error: null
 };
 
-function boardListReducer(state = initialState, action) {
+export function boardListReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_BOARDS_REQUEST:
+    case GET_BOARD_LIST_REQUEST:
       return {
         ...state,
         loading: true
       }
-    case GET_BOARDS_SUCCESS:
+    case GET_BOARD_LIST_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
         boards: action.boards
       }
-    case GET_BOARDS_FAILURE:
+    case GET_BOARD_LIST_FAILURE:
       return {
         ...state,
         loading: false,
@@ -35,9 +34,3 @@ function boardListReducer(state = initialState, action) {
       return state;
   }
 }
-
-const rootReducer = combineReducers({
-  boardListReducer
-});
-
-export default rootReducer;

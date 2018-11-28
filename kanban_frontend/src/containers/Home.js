@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import BoardList from '../components/BoardList';
-import { getBoards } from '../actions/boardList';
+import HomeView from '../components/HomeView';
+import { getBoardList } from '../actions/boardList';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,13 +12,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBoards: () => dispatch(getBoards())
+    getBoardList: () => dispatch(getBoardList())
   };
 };
 
-const Boards = connect(
+const Home = connect(
   mapStateToProps,
   mapDispatchToProps
-)(BoardList);
+)(HomeView);
 
-export default Boards;
+export default Home;
