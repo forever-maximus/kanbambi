@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING
-    }
+    },
+    order: {
+      type: DataTypes.INTEGER
+    },
   });
 
   return Task;

@@ -36,9 +36,9 @@ router.post('/', (req, res) => {
       name: req.body.name,
       description: req.body.description,
       state_columns: [
-        { name: 'To Do' },
-        { name: 'In Progress' },
-        { name: 'Done' },
+        { name: 'To Do', order: 1 },
+        { name: 'In Progress', order: 2 },
+        { name: 'Done', order: 3 },
       ]
     }, {
       include: [ models.state_column ]

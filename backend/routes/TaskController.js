@@ -12,11 +12,14 @@ router.post('/', (req, res) => {
     res.status(400).json({error: "Missing required field 'description'"});
   } else if (!('stateColumnId' in req.body)) {
     res.status(400).json({error: "Missing required field 'stateColumnId'"});
+  } else if (!('order' in req.body)) {
+    res.status(400).json({error: "Missing required field 'order'"});
   } else {
     models.task.create({
       title: req.body.title,
       description: req.body.description,
-      stateColumnId: req.body.stateColumnId
+      stateColumnId: req.body.stateColumnId,
+      order: req.body.order,
     }).then(task => {
       res.status(201).json({task: task});
     });
