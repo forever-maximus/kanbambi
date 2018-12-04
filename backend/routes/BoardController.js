@@ -17,9 +17,13 @@ router.get('/:id', (req, res) => {
     include: [{
       model: models.state_column, 
       include: [{
-        model: models.task 
+        model: models.task
       }]
-    }]
+    }],
+    order: [
+      [models.state_column, 'order', 'asc'],
+      [models.state_column, models.task, 'order', 'asc']
+    ]
   }).then(board => {
     res.json({board: board});
   });
