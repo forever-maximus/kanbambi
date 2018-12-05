@@ -6,7 +6,10 @@ import {
 import {
   UPDATE_TASK_REQUEST,
   UPDATE_TASK_SUCCESS,
-  UPDATE_TASK_FAILURE
+  UPDATE_TASK_FAILURE,
+  REORDER_TASK_REQUEST,
+  REORDER_TASK_SUCCESS,
+  REORDER_TASK_FAILURE
 } from '../actions/task';
 import { arrayToObject } from '../utils';
 
@@ -28,14 +31,14 @@ export function boardReducer(state = initialState, action) {
 
     case GET_BOARD_SUCCESS:
       let stateColumns = arrayToObject(action.board.state_columns, 'id');
-      const stateColumnIds = Object.keys(stateColumns).map(id => Number(id));
+      const stateColumnIds = action.board.state_columns.map(column => column.id);
       const board = {...action.board, state_columns: stateColumnIds};
 
       let tasks = {};
       Object.entries(stateColumns).forEach(([key, value]) => {
         const columnTasks = arrayToObject(value.tasks, 'id');
         tasks = {...tasks, ...columnTasks};
-        value.tasks = Object.keys(columnTasks).map(id => Number(id));
+        value.tasks = value.tasks.map(task => task.id);
       });
 
       return {
@@ -92,6 +95,44 @@ export function boardReducer(state = initialState, action) {
         loading: false,
         error: action.error
       }
+
+    case REORDER_TASK_REQUEST:
+      // Get the old state column's tasks ordering.
+      // Then remove the task from previous index and insert at new index.
+      let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks;
+      newColumnTasks.splice(action.prevTaskIndex, 1);
+      newColumnTasks.splice(action.task.order - 1, 0, action.task.id);
+
+      return {
+        ...state,
+        stateColumns: {
+          ...state.stateColumns,
+          [action.task.stateColumnId]: {
+            ...state.stateColumns[action.task.stateColumnId],
+            tasks: newColumnTasks
+          }
+        },
+        tasks: {
+          ...state.tasks,
+          [action.task.id]: action.task
+        },
+        loading: true
+      }
+
+    case REORDER_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case REORDER_TASK_FAILURE:
+    // TODO - if there was an error need to roll back state to show previous order
+    return {
+      ...state,
+      loading: false,
+      error: action.error
+    }
 
     default:
       return state;

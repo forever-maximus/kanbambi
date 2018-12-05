@@ -10,8 +10,32 @@ class BoardView extends Component {
   }
 
   onDragEnd = result => {
-    // TODO: reorder our column
-    console.log(result);
+    const {destination, source, draggableId} = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      // Dropped in the same place it started - do nothing
+      return;
+    }
+
+    const task = this.props.tasks[draggableId];
+    const newTask = {
+      ...task, 
+      stateColumnId: Number(destination.droppableId),
+      order: destination.index + 1
+    };
+
+    if (destination.droppableId === source.droppableId) {
+      // Dropped in same state column - therefore just a reorder
+      this.props.reorderTask(newTask, source.index);
+    } else {
+      // Dropped in different state column - update task state and order
+      console.log('Task change state detected!');
+    }
+
   };
 
   render() {
