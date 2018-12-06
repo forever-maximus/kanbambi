@@ -28,14 +28,45 @@ router.post('/', (req, res) => {
 
 // Request to update a task - check what type required
 router.patch('/:id', (req, res) => {
-  // Check if a task reordering happened
   const prevOrder = req.query.prevOrder;
-  if (prevOrder !== undefined) {
+  const prevStateCol = req.query.prevStateCol;
+
+  if (prevStateCol !== undefined && prevOrder !== undefined) {
+    changeTaskState(req, res, prevOrder, prevStateCol)
+  } else if (prevOrder !== undefined) {
     reorderTasks(req, res, prevOrder);
   } else {
     updateTask(req, res);
   }
 });
+
+// Handle moving task from one state column to another
+function changeTaskState(req, res, prevOrder, prevStateCol) {
+  // TODO: put this in a transaction
+  // Decrement the order of tasks in the old state column with greater order than the task being removed
+  return models.task.decrement('order', {
+    where: {
+      order: {
+        $gt: prevOrder
+      },
+      stateColumnId: prevStateCol
+    }
+  }).then(() => {
+    // Increment order of tasks in new state column with greater or 
+    // equal order than where new task is inserted into
+    models.task.increment('order', {
+      where: {
+        order: {
+          $gte: req.body.order
+        },
+        stateColumnId: req.body.stateColumnId
+      },
+    }).then(() => {
+      // Lastly apply updates to the task that was changing state column
+      updateTask(req, res);
+    });
+  });
+}
 
 // Handle reordering tasks within a column
 function reorderTasks(req, res, prevOrder) {
@@ -49,8 +80,8 @@ function reorderTasks(req, res, prevOrder) {
           $gte: req.body.order
         },
         stateColumnId: req.body.stateColumnId
-      }}
-    ).then(() => {
+      }
+    }).then(() => {
       updateTask(req, res);
     });
   }
@@ -63,8 +94,8 @@ function reorderTasks(req, res, prevOrder) {
         $gt: prevOrder
       },
       stateColumnId: req.body.stateColumnId
-    }}
-  ).then(() => {
+    }
+  }).then(() => {
     updateTask(req, res);
   });
 }
