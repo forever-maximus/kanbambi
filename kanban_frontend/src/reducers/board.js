@@ -9,7 +9,10 @@ import {
   UPDATE_TASK_FAILURE,
   REORDER_TASK_REQUEST,
   REORDER_TASK_SUCCESS,
-  REORDER_TASK_FAILURE
+  REORDER_TASK_FAILURE,
+  CHANGE_TASK_STATE_REQUEST,
+  CHANGE_TASK_STATE_SUCCESS,
+  CHANGE_TASK_STATE_FAILURE
 } from '../actions/task';
 import { arrayToObject } from '../utils';
 
@@ -96,10 +99,10 @@ export function boardReducer(state = initialState, action) {
         error: action.error
       }
 
-    case REORDER_TASK_REQUEST:
+    case REORDER_TASK_REQUEST: {
       // Get the old state column's tasks ordering.
       // Then remove the task from previous index and insert at new index.
-      let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks;
+      let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks.slice();
       newColumnTasks.splice(action.prevTaskIndex, 1);
       newColumnTasks.splice(action.task.order - 1, 0, action.task.id);
 
@@ -118,6 +121,7 @@ export function boardReducer(state = initialState, action) {
         },
         loading: true
       }
+    }
 
     case REORDER_TASK_SUCCESS:
       return {
@@ -128,11 +132,56 @@ export function boardReducer(state = initialState, action) {
 
     case REORDER_TASK_FAILURE:
     // TODO - if there was an error need to roll back state to show previous order
-    return {
-      ...state,
-      loading: false,
-      error: action.error
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    case CHANGE_TASK_STATE_REQUEST: {
+      // Remove task from previous state column
+      let prevColumnTasks = state.stateColumns[action.taskPrevStateCol].tasks.slice();
+      prevColumnTasks.splice(action.prevTaskIndex, 1);
+
+      // Add task to new state column's tasks
+      let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks.slice();
+      newColumnTasks.splice(action.task.order - 1, 0, action.task.id);
+
+      return {
+        ...state,
+        stateColumns: {
+          ...state.stateColumns,
+          [action.task.stateColumnId]: {
+            ...state.stateColumns[action.task.stateColumnId],
+            tasks: newColumnTasks
+          },
+          [action.taskPrevStateCol]: {
+            ...state.stateColumns[action.taskPrevStateCol],
+            tasks: prevColumnTasks
+          }
+        },
+        tasks: {
+          ...state.tasks,
+          [action.task.id]: action.task
+        },
+        loading: true
+      }
     }
+
+    case CHANGE_TASK_STATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case CHANGE_TASK_STATE_FAILURE:
+    // TODO - if there was an error need to roll back state to show previous state
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
 
     default:
       return state;

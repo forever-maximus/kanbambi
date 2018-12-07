@@ -80,3 +80,47 @@ export function reorderTask(task, prevTaskIndex) {
       });
   }
 }
+
+
+export const CHANGE_TASK_STATE_REQUEST = 'CHANGE_TASK_STATE_REQUEST';
+export const CHANGE_TASK_STATE_SUCCESS = 'CHANGE_TASK_STATE_SUCCESS';
+export const CHANGE_TASK_STATE_FAILURE = 'CHANGE_TASK_STATE_FAILURE';
+
+function changeTaskStateRequest(task, prevTaskIndex, taskPrevStateCol) {
+  return {
+    type: CHANGE_TASK_STATE_REQUEST,
+    task,
+    prevTaskIndex,
+    taskPrevStateCol
+  }
+}
+
+function changeTaskStateSuccess(task) {
+  return {
+    type: CHANGE_TASK_STATE_SUCCESS,
+    task
+  }
+}
+
+function changeTaskStateFailure(error) {
+  return {
+    type: CHANGE_TASK_STATE_FAILURE,
+    error
+  }
+}
+
+export function changeTaskState(task, prevTaskIndex, taskPrevStateCol) {
+  return (dispatch) => {
+    dispatch(changeTaskStateRequest(task, prevTaskIndex, taskPrevStateCol));
+
+    const endpoint = '/tasks/' + task.id + '?prevOrder=' + (prevTaskIndex + 1) + '&prevStateCol=' 
+      + taskPrevStateCol;
+    axios.patch('http://localhost:8080' + endpoint, task)
+      .then(response => {
+        dispatch(changeTaskStateSuccess(response.data.task));
+      })
+      .catch(error => {
+        dispatch(changeTaskStateFailure(error));
+      })
+  }
+}
