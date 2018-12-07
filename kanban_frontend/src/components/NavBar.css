@@ -1,0 +1,18 @@
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-wrapper .home {
+  margin-right: auto;
+}
+
+.nav-wrapper .title {
+  color: #eeeeee;
+  margin-right: auto;
+}
+
+.nav-wrapper .title:hover {
+  color: #ffffff;
+}
