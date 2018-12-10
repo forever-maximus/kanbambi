@@ -1,0 +1,53 @@
+.board-header-wrapper {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.board-header-wrapper a {
+  color: #000000;
+}
+
+.board-header-wrapper a:hover {
+  color: #000000;
+}
+
+.board-title {
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.board-title:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+.rename-board-popup .input {
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+.rename-board-popup label {
+  display: block;
+  font-weight: 600;
+  margin: 2px 0px;
+  font-size: 12px;
+  color: #6b808c;
+}
+
+.rename-board-popup .popup-header {
+  color: #6b808c;
+  text-align: center;
+}
+
+.rename-board-popup .close-button {
+  position: absolute;
+  right: 3px;
+  top: 7px;
+  padding: 5px;
+}
+
+.rename-board-popup .close-button:hover {
+  cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StateColumnGrid from './StateColumnGrid';
+import BoardHeader from './BoardHeader';
 import { DragDropContext } from 'react-beautiful-dnd';
 import './BoardView.css';
 
@@ -37,16 +38,19 @@ class BoardView extends Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <div className='column-grid-wrapper'>
-          <StateColumnGrid 
-            board={this.props.board} 
-            stateColumns={this.props.stateColumns}
-            tasks={this.props.tasks}
-            updateTask={this.props.updateTask} 
-          />
-        </div>
-      </DragDropContext>
+      <div className='board-wrapper'>
+        <BoardHeader board={this.props.board} />
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <div className='column-grid-wrapper'>
+            <StateColumnGrid 
+              board={this.props.board} 
+              stateColumns={this.props.stateColumns}
+              tasks={this.props.tasks}
+              updateTask={this.props.updateTask} 
+            />
+          </div>
+        </DragDropContext>
+      </div>
     );
   }
 }
