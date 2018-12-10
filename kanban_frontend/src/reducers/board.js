@@ -1,7 +1,10 @@
 import {
   GET_BOARD_REQUEST,
   GET_BOARD_SUCCESS,
-  GET_BOARD_FAILURE
+  GET_BOARD_FAILURE,
+  UPDATE_BOARD_REQUEST,
+  UPDATE_BOARD_SUCCESS,
+  UPDATE_BOARD_FAILURE
 } from '../actions/board';
 import {
   UPDATE_TASK_REQUEST,
@@ -59,6 +62,31 @@ export function boardReducer(state = initialState, action) {
         loading: false,
         error: action.error
       }
+
+    case UPDATE_BOARD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        board: {
+          ...state.board,
+          ...action.board
+        }
+      }
+
+    case UPDATE_BOARD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case UPDATE_BOARD_FAILURE:
+      // TODO - rollback optimistic update changes from update request action
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      } 
 
     case UPDATE_TASK_REQUEST:
       return {

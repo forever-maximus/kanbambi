@@ -37,3 +37,41 @@ export function getBoard(id) {
       });
   }
 }
+
+export const UPDATE_BOARD_REQUEST = 'UPDATE_BOARD_REQUEST';
+export const UPDATE_BOARD_SUCCESS = 'UPDATE_BOARD_SUCCESS';
+export const UPDATE_BOARD_FAILURE = 'UPDATE_BOARD_FAILURE';
+
+function updateBoardRequest(board) {
+  return {
+    type: UPDATE_BOARD_REQUEST,
+    board
+  }
+}
+
+function updateBoardSuccess() {
+  return {
+    type: UPDATE_BOARD_SUCCESS
+  }
+}
+
+function updateBoardFailure(error) {
+  return {
+    type: UPDATE_BOARD_FAILURE,
+    error
+  }
+}
+
+export function updateBoard(id, boardUpdate) {
+  return (dispatch) => {
+    dispatch(updateBoardRequest(boardUpdate));
+
+    axios.patch('http://localhost:8080/boards/' + id, boardUpdate)
+      .then(response => {
+        dispatch(updateBoardSuccess());
+      })
+      .catch(error => {
+        dispatch(updateBoardFailure(error));
+      })
+  }
+}

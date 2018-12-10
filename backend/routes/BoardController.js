@@ -29,6 +29,17 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// Update a board by id
+router.patch('/:id', (req, res) => {
+  models.board.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  }).then(() => {
+    res.status(200).json({board: req.body});
+  });
+});
+
 // Create new kanban board - initialise 3 default state columns
 router.post('/', (req, res) => {
   if (!('name' in req.body)) {

@@ -39,7 +39,10 @@ class BoardView extends Component {
   render() {
     return (
       <div className='board-wrapper'>
-        <BoardHeader board={this.props.board} />
+        <BoardHeader 
+          board={this.props.board} 
+          updateBoard={this.props.updateBoard} 
+        />
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div className='column-grid-wrapper'>
             <StateColumnGrid 

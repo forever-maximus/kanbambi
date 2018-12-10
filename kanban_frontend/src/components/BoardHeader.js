@@ -6,13 +6,27 @@ class BoardHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      renameInput: ''
     }
   }
 
   openPopup = () => this.setState({isOpen: true});
 
   closePopup = () => this.setState({isOpen: false});
+
+  handleChange = (ev, { name, value }) => this.setState({ [name]: value });
+
+  handleKeyPress = (ev) => {
+    if (ev.key === 'Enter') this.renameBoard();
+  }
+
+  renameBoard = () => {
+    if (this.state.renameInput !== this.props.board.name) {
+      this.props.updateBoard(this.props.board.id, {name: this.state.renameInput});
+    }
+    this.setState({isOpen: false});
+  }
 
   render() {
     return (
@@ -34,8 +48,19 @@ class BoardHeader extends Component {
           <Divider />
           <div>
             <label>Name</label>
-            <Input placeholder='Name' className='input' defaultValue={this.props.board.name} />
-            <Button color='green' content='Rename' />
+            <Input 
+              placeholder='Name' 
+              className='input'
+              value={this.state.renameInput}
+              name='renameInput'
+              onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
+            />
+            <Button 
+              color='green' 
+              content='Rename' 
+              onClick={this.renameBoard} 
+            />
           </div>
         </Popup>
       </div>
