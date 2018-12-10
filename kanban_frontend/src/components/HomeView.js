@@ -16,12 +16,10 @@ class HomeView extends Component {
 
   render() {
     return (
-      <div>
-        <BoardsList 
-          boards={this.props.boards}
-          chooseBoard={this.handleSelectBoard}
-        />
-      </div>
+      <BoardsList 
+        boards={this.props.boards}
+        chooseBoard={this.handleSelectBoard}
+      />
     );
   }
 }

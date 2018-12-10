@@ -1,0 +1,22 @@
+.boards-list-parent-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.boards-list-header {
+  text-align: left;
+  padding: 2px 15px;
+}
+
+.boards-list-header h3 {
+  margin: 0px 0px 0px 10px;
+  display: inline-block;
+}
+
+.boards-list-wrapper {
+  display: flex;
+}
+
+.boards-list-wrapper .board-item {
+  margin: 10px 5px !important;
+}
