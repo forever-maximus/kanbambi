@@ -12,7 +12,7 @@ const Task = (props) => (
         {...provided.dragHandleProps}
         className='task-container'
       >
-        <Card fluid>
+        <Card fluid onClick={() => props.openModal(props.task.id)}>
           <Card.Content header={props.task.title} />
           <Card.Content description={props.task.description} />
         </Card>

@@ -21,6 +21,7 @@ const StateColumn = (props) => {
                   key={props.column.id} 
                   taskIds={props.column.tasks} 
                   tasks={props.tasks} 
+                  openModal={props.openModal}
                 />
                 {provided.placeholder}
               </div>

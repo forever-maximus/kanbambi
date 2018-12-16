@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import StateColumnGrid from './StateColumnGrid';
 import BoardHeader from './BoardHeader';
+import UpdateTaskModal from './UpdateTaskModal';
 import { DragDropContext } from 'react-beautiful-dnd';
 import './BoardView.css';
 
 class BoardView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+      modalTaskId: ''
+    }
+  }
+
   componentDidMount() {
     const boardId = this.props.match.params.id;
     this.props.getBoard(boardId);
@@ -36,6 +45,21 @@ class BoardView extends Component {
     }
   };
 
+  closeModal = () => this.setState({isModalOpen: false, modalTaskId: ''});
+
+  openModal = (id) => this.setState({isModalOpen: true, modalTaskId: id});
+
+  checkDisplayModal = () => {
+    if (this.state.isModalOpen) {
+      return (
+        <UpdateTaskModal 
+          closeModal={this.closeModal} 
+          task={this.props.tasks[this.state.modalTaskId]} 
+        />
+      );
+    }
+  }
+
   render() {
     return (
       <div className='board-wrapper'>
@@ -50,9 +74,11 @@ class BoardView extends Component {
               stateColumns={this.props.stateColumns}
               tasks={this.props.tasks}
               updateTask={this.props.updateTask} 
+              openModal={this.openModal}
             />
           </div>
         </DragDropContext>
+        { this.checkDisplayModal() }
       </div>
     );
   }
