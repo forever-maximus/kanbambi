@@ -10,7 +10,7 @@
 
 .nav-wrapper .title {
   color: #eeeeee;
-  margin-right: auto;
+  position: absolute;
 }
 
 .nav-wrapper .title:hover {

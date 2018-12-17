@@ -17,3 +17,16 @@
   padding: 10px 0px 0px;
   height: 100%;
 }
+
+.state-column .add-task-btn {
+  width: 100%;
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px 20px;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.state-column .add-task-btn:hover {
+  background-color: #dddddd;
+  color: rgba(0, 0, 0, 1);
+}

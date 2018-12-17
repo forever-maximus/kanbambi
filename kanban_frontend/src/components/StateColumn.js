@@ -2,6 +2,7 @@ import React from 'react';
 import TaskList from './TaskList';
 import './StateColumn.css';
 import { Droppable } from 'react-beautiful-dnd';
+import { Icon } from 'semantic-ui-react';
 
 const StateColumn = (props) => {
   return (
@@ -29,6 +30,10 @@ const StateColumn = (props) => {
           }
         </Droppable>
       }
+      <a href='#' className='add-task-btn'>
+        <Icon name='plus'></Icon>
+        <span>Add another task</span>
+      </a>
     </div>
   )
 }
