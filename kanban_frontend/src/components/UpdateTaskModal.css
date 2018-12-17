@@ -12,9 +12,23 @@
 }
 
 .modal-wrapper {
-  width: 400px;
+  width: 500px;
   height: 400px;
   background-color: #ebeef0;
   margin-top: 50px;
   border-radius: 5px;
+  padding: 20px;
+}
+
+.modal-wrapper .ui.input.title>input {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-wrapper .ui.input {
+  width: 100%;
+}
+
+.modal-wrapper .ui.modal-field {
+  margin-bottom: 5px;
 }

@@ -32,7 +32,7 @@ const StateColumn = (props) => {
       }
       <a href='#' className='add-task-btn'>
         <Icon name='plus'></Icon>
-        <span>Add another task</span>
+        <span>Add a task</span>
       </a>
     </div>
   )

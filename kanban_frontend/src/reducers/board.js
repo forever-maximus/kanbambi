@@ -91,36 +91,22 @@ export function boardReducer(state = initialState, action) {
     case UPDATE_TASK_REQUEST:
       return {
         ...state,
-        loading: true
-      }
-
-    case UPDATE_TASK_SUCCESS:
-      const tasksOnPrevCol = state.stateColumns[action.prevStateColumnId].tasks.filter(taskId => (
-        taskId !== action.task.id
-      ));
-
-      return {
-        ...state,
-        stateColumns: {
-          ...state.stateColumns,
-          [action.prevStateColumnId]: {
-            ...state.stateColumns[action.prevStateColumnId],
-            tasks: tasksOnPrevCol
-          },
-          [action.task.stateColumnId]: {
-            ...state.stateColumns[action.task.stateColumnId],
-            tasks: [...state.stateColumns[action.task.stateColumnId].tasks, action.task.id]
-          }
-        },
         tasks: {
           ...state.tasks,
           [action.task.id]: action.task
         },
+        loading: true
+      }
+
+    case UPDATE_TASK_SUCCESS:
+      return {
+        ...state,
         loading: false,
         error: null
       }
 
     case UPDATE_TASK_FAILURE:
+    // TODO - rollback optimistic update changes from update request action
       return {
         ...state,
         loading: false,

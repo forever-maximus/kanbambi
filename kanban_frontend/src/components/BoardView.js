@@ -55,6 +55,7 @@ class BoardView extends Component {
         <UpdateTaskModal 
           closeModal={this.closeModal} 
           task={this.props.tasks[this.state.modalTaskId]} 
+          updateTask={this.props.updateTask}
         />
       );
     }

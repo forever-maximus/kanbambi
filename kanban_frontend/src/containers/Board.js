@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getBoard: (id) => dispatch(getBoard(id)),
-    updateTask: (task, prevStateColumnId) => dispatch(updateTask(task, prevStateColumnId)),
+    updateTask: (task) => dispatch(updateTask(task)),
     reorderTask: (task, prevTaskIndex) => dispatch(reorderTask(task, prevTaskIndex)),
     changeTaskState: (task, prevTaskIndex, taskPrevStateCol) => 
       dispatch(changeTaskState(task, prevTaskIndex, taskPrevStateCol)),

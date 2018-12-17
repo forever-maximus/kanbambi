@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './UpdateTaskModal.css';
+import { Form, Input, TextArea } from 'semantic-ui-react';
 
 class UpdateTaskModal extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class UpdateTaskModal extends Component {
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
     document.addEventListener('keydown', this.handleKeyboard);
+    this.setState({
+      title: this.props.task.title,
+      description: this.props.task.description
+    });
   }
 
   componentWillUnmount() {
@@ -26,21 +31,54 @@ class UpdateTaskModal extends Component {
 
   handleClickOutside = (event) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.updateTask();
       this.props.closeModal();
     }
   }
 
   handleKeyboard = (event) => {
     if (event.key === 'Escape') {
+      this.updateTask();
       this.props.closeModal();
     }
   }
+
+  updateTask = () => {
+    // Check if the task has been updated
+    if (this.state.title !== this.props.task.title
+      || this.state.description !== this.props.task.description) {
+        // Call redux action to update
+        const task = {
+          id: this.props.task.id,
+          title: this.state.title,
+          description: this.state.description
+        }
+        this.props.updateTask(task);
+    }
+  }
+
+  handleChange = (ev, { name, value }) => this.setState({ [name]: value });
 
   render() {
     return (
       <div className='modal-overlay'>
         <div ref={this.setWrapperRef} className='modal-wrapper'>
-
+          <Form>
+            <Input 
+              className={`title editable modal-field`} 
+              value={this.state.title} 
+              placeholder='title...' 
+              name='title'
+              onChange={this.handleChange}
+            />
+            <TextArea 
+              className={`description editable modal-field`}
+              placeholder='description...' 
+              value={this.state.description} 
+              name='description'
+              onChange={this.handleChange}
+            />
+          </Form>
         </div>
       </div>
     );

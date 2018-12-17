@@ -11,11 +11,10 @@ function updateTaskRequest(task) {
   }
 }
 
-function updateTaskSuccess(task, prevStateColumnId) {
+function updateTaskSuccess(task) {
   return {
     type: UPDATE_TASK_SUCCESS,
-    task,
-    prevStateColumnId
+    task
   }
 }
 
@@ -26,13 +25,13 @@ function updateTaskFailure(error) {
   }
 }
 
-export function updateTask(task, prevStateColumnId) {
+export function updateTask(task) {
   return (dispatch) => {
     dispatch(updateTaskRequest(task));
 
     axios.patch('http://localhost:8080/tasks/' + task.id, task)
       .then(response => {
-        dispatch(updateTaskSuccess(response.data.task, prevStateColumnId));
+        dispatch(updateTaskSuccess(response.data.task));
       })
       .catch(error => {
         dispatch(updateTaskFailure(error.message));
