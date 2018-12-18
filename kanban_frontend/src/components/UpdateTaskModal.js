@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './UpdateTaskModal.css';
-import { Form, Input, TextArea } from 'semantic-ui-react';
+import { Form, Input, TextArea, Icon } from 'semantic-ui-react';
 
 class UpdateTaskModal extends Component {
   constructor(props) {
@@ -43,6 +43,11 @@ class UpdateTaskModal extends Component {
     }
   }
 
+  handleCloseBtn = () => {
+    this.updateTask();
+    this.props.closeModal();
+  }
+
   updateTask = () => {
     // Check if the task has been updated
     if (this.state.title !== this.props.task.title
@@ -64,19 +69,32 @@ class UpdateTaskModal extends Component {
       <div className='modal-overlay'>
         <div ref={this.setWrapperRef} className='modal-wrapper'>
           <Form>
-            <Input 
-              className={`title editable modal-field`} 
-              value={this.state.title} 
-              placeholder='title...' 
-              name='title'
-              onChange={this.handleChange}
-            />
+            <div className='modal-header'>
+              <div>
+                <Icon name='folder open'/>
+              </div>
+              <Input 
+                className={`title editable modal-field`} 
+                value={this.state.title} 
+                placeholder='title...' 
+                name='title'
+                onChange={this.handleChange}
+              />
+              <Icon name='close' className='close-btn' onClick={this.handleCloseBtn} />
+            </div>
+            <div className='label-wrapper'>
+              <div>
+                <Icon name='list ul' />
+              </div>
+              <label>Description</label>
+            </div>
             <TextArea 
               className={`description editable modal-field`}
               placeholder='description...' 
               value={this.state.description} 
               name='description'
               onChange={this.handleChange}
+              autoHeight
             />
           </Form>
         </div>

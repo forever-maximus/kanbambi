@@ -38,6 +38,7 @@ class BoardHeader extends Component {
           open={this.state.isOpen}
           onOpen={this.openPopup}
           onClose={this.closePopup}
+          position='bottom left'
         >
           <div className='popup-header'>
             <span>Rename Board</span>

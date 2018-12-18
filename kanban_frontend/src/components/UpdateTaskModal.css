@@ -21,14 +21,57 @@
 }
 
 .modal-wrapper .ui.input.title>input {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
+  padding: 0.3em;
+  border: 1px solid #ebeef0;
+  background: none;
+}
+
+.modal-wrapper .ui.input.title>input:focus {
+  border: 1px solid rgba(0, 80, 180, 0.5);
+  background: #ffffff;
 }
 
 .modal-wrapper .ui.input {
   width: 100%;
 }
 
-.modal-wrapper .ui.modal-field {
+.modal-wrapper .modal-header {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-overlay .label-wrapper {
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
   margin-bottom: 5px;
+  display: flex;
+}
+
+.modal-wrapper .ui.form .description {
+  border: 1px solid #ebeef0;
+  background: none;
+}
+
+.modal-wrapper .ui.form .description:focus {
+  border: 1px solid rgba(0, 80, 180, 0.5);
+  background: #ffffff;
+}
+
+.modal-wrapper .modal-header .icon {
+  color: rgba(0, 0, 0, 0.5);
+}
+.modal-wrapper .label-wrapper .icon {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-wrapper .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  cursor: pointer;
 }
