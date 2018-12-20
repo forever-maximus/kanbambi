@@ -1,0 +1,27 @@
+.new-task-wrapper {
+  width: 90%;
+  margin: 0px 0px 10px;
+}
+
+.new-task-wrapper .ui.form .field>label {
+  color: #6b808c;
+  margin-left: 5px;
+  text-align: left;
+}
+
+.new-task-wrapper .submit-wrapper {
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.new-task-wrapper .submit-wrapper .close-btn {
+  font-size: 20px;
+  color: rgba(70, 100, 106, 0.7);
+  margin-left: 5px;
+}
+
+.new-task-wrapper .submit-wrapper .close-btn:hover {
+  color: rgba(70, 100, 106, 1);
+  cursor: pointer;
+}

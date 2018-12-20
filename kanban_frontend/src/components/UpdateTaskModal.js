@@ -68,7 +68,7 @@ class UpdateTaskModal extends Component {
     return (
       <div className='modal-overlay'>
         <div ref={this.setWrapperRef} className='modal-wrapper'>
-          <Form>
+          <Form autoComplete='off'>
             <div className='modal-header'>
               <div>
                 <Icon name='folder open'/>

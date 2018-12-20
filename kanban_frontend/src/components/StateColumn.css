@@ -1,7 +1,6 @@
 .state-column {
   background-color: #eeeeee;
   border-radius: 5px;
-  height: 100%;
   padding: 10px 0px 0px;
   display: flex;
   flex-direction: column;
@@ -16,6 +15,7 @@
   align-items: center;
   padding: 10px 0px 0px;
   height: 100%;
+  min-height: 150px;
 }
 
 .state-column .add-task-btn {
