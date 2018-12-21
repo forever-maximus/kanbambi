@@ -76,6 +76,7 @@ class BoardView extends Component {
               tasks={this.props.tasks}
               updateTask={this.props.updateTask} 
               openModal={this.openModal}
+              isModalOpen={this.state.isModalOpen}
             />
           </div>
         </DragDropContext>

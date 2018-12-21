@@ -10,29 +10,41 @@ class StateColumn extends Component {
     super(props);
     this.state = {
       addNewTask: false,
-      title: '',
-      description: ''
-    }
+      newTaskTitle: '',
+      newTaskDescription: ''
+    };
   }
 
-  addNewTask = () => this.setState({addNewTask: true});
+  static getDerivedStateFromProps(props, current_state) {
+    if (current_state.addNewTask && props.isModalOpen) {
+      // Someone has clicked to edit an existing task - need to close and reset new task state and handlers
+      return ({
+        addNewTask: false,
+        newTaskTitle: '',
+        newTaskDescription: ''
+      });
+    }
+    return null;
+  }
+
+  openAddNewTask = () => this.setState({addNewTask: true});
 
   cancelNewTask = () => {
     this.setState({
       addNewTask: false,
-      title: '',
-      description: ''
+      newTaskTitle: '',
+      newTaskDescription: ''
     });
   }
 
   checkAddNewTask = () => {
-    if (this.state.addNewTask) {
+    if (this.state.addNewTask && !this.props.isModalOpen) {
       return (
         <NewTask cancelNewTask={this.cancelNewTask} />
       );
     }
     return (
-      <a href='#' className='add-task-btn' onClick={this.addNewTask}>
+      <a href='#' className='add-task-btn' onClick={this.openAddNewTask}>
         <Icon name='plus'></Icon>
         <span>Add a task</span>
       </a>
