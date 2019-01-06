@@ -17,6 +17,7 @@ class StateColumn extends Component {
 
   static getDerivedStateFromProps(props, current_state) {
     if (current_state.addNewTask && props.isModalOpen) {
+      // TODO - do I need to remove new task event listeners here maybe?
       // Someone has clicked to edit an existing task - need to close and reset new task state and handlers
       return ({
         addNewTask: false,
@@ -27,7 +28,22 @@ class StateColumn extends Component {
     return null;
   }
 
-  openAddNewTask = () => this.setState({addNewTask: true});
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleKeyboard);
+  }
+
+  openAddNewTask = () => {
+    document.addEventListener('keydown', this.handleKeyboard);
+    document.addEventListener('mousedown', this.handleClickOutside);
+    this.setState({addNewTask: true});
+  }
+
+  handleKeyboard = (event) => {
+    if (event.key === 'Escape') {
+      this.cancelNewTask();
+    }
+  }
 
   cancelNewTask = () => {
     this.setState({
@@ -37,10 +53,24 @@ class StateColumn extends Component {
     });
   }
 
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.cancelNewTask();
+    }
+  }
+
+  setWrapperRef = (node) => {
+    this.wrapperRef = node;
+  }
+
   checkAddNewTask = () => {
     if (this.state.addNewTask && !this.props.isModalOpen) {
       return (
-        <NewTask cancelNewTask={this.cancelNewTask} />
+        <div ref={this.setWrapperRef} className='new-task-container'>
+          <NewTask 
+            cancelNewTask={this.cancelNewTask} 
+          />
+        </div>
       );
     }
     return (
