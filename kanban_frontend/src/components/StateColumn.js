@@ -65,8 +65,24 @@ class StateColumn extends Component {
     this.wrapperRef = node;
   }
 
-  checkAddNewTask = () => {
-    if (this.state.addNewTask && !this.props.isModalOpen) {
+  setDroppableWrapperRef = (node) => {
+    this.droppableWrapperRef = node;
+  }
+
+  addNewTaskButton = () => {
+    if (!this.state.addNewTask) {
+      return (
+        <a href='#' className='add-task-btn' onClick={this.openAddNewTask}>
+          <Icon name='plus'></Icon>
+          <span>Add a task</span>
+        </a>
+      );
+    }
+  }
+
+  createNewTaskComponent = () => {
+    if (this.state.addNewTask) {
+      this.scrollToBottom();
       return (
         <div ref={this.setWrapperRef} className='new-task-container'>
           <NewTask 
@@ -78,12 +94,10 @@ class StateColumn extends Component {
         </div>
       );
     }
-    return (
-      <a href='#' className='add-task-btn' onClick={this.openAddNewTask}>
-        <Icon name='plus'></Icon>
-        <span>Add a task</span>
-      </a>
-    );
+  }
+
+  scrollToBottom = () => {
+    this.droppableWrapperRef.scrollTop = this.droppableWrapperRef.scrollHeight;
   }
 
   handleAddNewTask = () => {
@@ -102,28 +116,31 @@ class StateColumn extends Component {
       <div className="state-column">
         <h3>{this.props.column.name}</h3>
         {
-          <Droppable droppableId={this.props.column.id.toString()}>
-            {
-              (provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={{ backgroundColor: snapshot.isDraggingOver ? '#cceeff' : '#eeeeee' }}
-                  {...provided.droppableProps}
-                  className="droppable-area"
-                >
-                  <TaskList 
-                    key={this.props.column.id} 
-                    taskIds={this.props.column.tasks} 
-                    tasks={this.props.tasks} 
-                    openModal={this.props.openModal}
-                  />
-                  {provided.placeholder}
-                </div>
-              )
-            }
-          </Droppable>
+          <div ref={this.setDroppableWrapperRef} className="task-droppable-wrapper">
+            <Droppable droppableId={this.props.column.id.toString()}>
+              {
+                (provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={{ backgroundColor: snapshot.isDraggingOver ? '#cceeff' : '#eeeeee' }}
+                    {...provided.droppableProps}
+                    className="droppable-area"
+                  >
+                    <TaskList 
+                      key={this.props.column.id} 
+                      taskIds={this.props.column.tasks} 
+                      tasks={this.props.tasks} 
+                      openModal={this.props.openModal}
+                    />
+                    { this.createNewTaskComponent() }
+                    {provided.placeholder}
+                  </div>
+                )
+              }
+            </Droppable>
+          </div>
         }
-        { this.checkAddNewTask() }
+        { this.addNewTaskButton() }
       </div>
     );
   }

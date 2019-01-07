@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import StateColumn from './StateColumn';
 
+const columnStyle = {
+  padding: '0px 10px'
+}
+
 class StateColumnGrid extends Component {
 
   displayStateColumns = () => {
@@ -15,7 +19,7 @@ class StateColumnGrid extends Component {
       <Grid columns={Object.keys(stateColumns).length}>
           <Grid.Row>
             {Object.values(stateColumns).map((column, i) => (
-              <Grid.Column key={i}>
+              <Grid.Column key={i} style={columnStyle}>
                   <StateColumn 
                     key={column.id}
                     column={column} 
