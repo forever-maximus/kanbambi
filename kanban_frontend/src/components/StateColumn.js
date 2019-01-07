@@ -59,6 +59,8 @@ class StateColumn extends Component {
     }
   }
 
+  handleChange = (event) => this.setState({[event.target.name]: event.target.value});
+
   setWrapperRef = (node) => {
     this.wrapperRef = node;
   }
@@ -69,6 +71,9 @@ class StateColumn extends Component {
         <div ref={this.setWrapperRef} className='new-task-container'>
           <NewTask 
             cancelNewTask={this.cancelNewTask} 
+            handleAddNewTask={this.handleAddNewTask}
+            handleChange={this.handleChange}
+            title={this.state.newTaskTitle}
           />
         </div>
       );
@@ -79,6 +84,17 @@ class StateColumn extends Component {
         <span>Add a task</span>
       </a>
     );
+  }
+
+  handleAddNewTask = () => {
+    const newTask = {
+      title: this.state.newTaskTitle,
+      description: this.state.newTaskDescription,
+      order: this.props.column.tasks.length + 1,
+      stateColumnId: this.props.column.id
+    }
+    this.props.addNewTask(newTask);
+    this.cancelNewTask();
   }
 
   render() {

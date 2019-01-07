@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import BoardView from '../components/BoardView';
 import { getBoard, updateBoard } from '../actions/board';
-import { updateTask, reorderTask, changeTaskState,} from '../actions/task';
+import { updateTask, addNewTask, reorderTask, changeTaskState } from '../actions/task';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getBoard: (id) => dispatch(getBoard(id)),
     updateTask: (task) => dispatch(updateTask(task)),
+    addNewTask: (task) => dispatch(addNewTask(task)),
     reorderTask: (task, prevTaskIndex) => dispatch(reorderTask(task, prevTaskIndex)),
     changeTaskState: (task, prevTaskIndex, taskPrevStateCol) => 
       dispatch(changeTaskState(task, prevTaskIndex, taskPrevStateCol)),

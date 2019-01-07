@@ -22,6 +22,7 @@ class StateColumnGrid extends Component {
                     tasks={this.props.tasks}
                     openModal={this.props.openModal}
                     isModalOpen={this.props.isModalOpen}
+                    addNewTask={this.props.addNewTask}
                   />
               </Grid.Column>
             ))}

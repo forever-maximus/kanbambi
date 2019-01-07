@@ -11,7 +11,9 @@ const NewTask = (props) => (
             <label>Title</label>
             <input 
               placeholder='title...' 
-              name='title' 
+              name='newTaskTitle' 
+              value={props.title}
+              onChange={props.handleChange}
             />
           </Form.Field>
           <Form.Field>
@@ -19,14 +21,15 @@ const NewTask = (props) => (
             <TextArea 
               autoHeight
               placeholder='description...' 
-              name='description' 
+              name='newTaskDescription' 
+              onChange={props.handleChange}
             />
           </Form.Field>
         </Form>
       </Card.Content>
     </Card>
     <div className='submit-wrapper'>
-      <Button content='Add Task' color='green' />
+      <Button content='Add Task' color='green' onClick={props.handleAddNewTask}/>
       <Icon name='close' className='close-btn' onClick={props.cancelNewTask} />
     </div>
   </div>
