@@ -3,19 +3,12 @@
   text-align: left;
 }
 
-.board-header-wrapper a {
-  color: #000000;
-}
-
-.board-header-wrapper a:hover {
-  color: #000000;
-}
-
 .board-title {
   font-size: 22px;
   font-weight: 700;
   border-radius: 5px;
   padding: 5px 10px;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 
 .board-title:hover {

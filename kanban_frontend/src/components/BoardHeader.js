@@ -32,7 +32,7 @@ class BoardHeader extends Component {
     return (
       <div className='board-header-wrapper'>
         <Popup
-          trigger={<a href='#'><span className='board-title'>{this.props.board.name}</span></a>}
+          trigger={<button className='board-title'>{this.props.board.name}</button>}
           on='click'
           className='rename-board-popup'
           open={this.state.isOpen}

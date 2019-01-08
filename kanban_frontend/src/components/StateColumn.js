@@ -11,7 +11,8 @@ class StateColumn extends Component {
     this.state = {
       addNewTask: false,
       newTaskTitle: '',
-      newTaskDescription: ''
+      newTaskDescription: '',
+      adjustScroll: false,
     };
   }
 
@@ -28,6 +29,14 @@ class StateColumn extends Component {
     return null;
   }
 
+  componentDidUpdate() {
+    // This is a work around to get the scroll to go to the bottom.
+    // Causes a second rerender when adding new task. TODO - work out better way.
+    if (this.state.adjustScroll) {
+      this.setState({ adjustScroll: false });
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
     document.removeEventListener('keydown', this.handleKeyboard);
@@ -36,7 +45,7 @@ class StateColumn extends Component {
   openAddNewTask = () => {
     document.addEventListener('keydown', this.handleKeyboard);
     document.addEventListener('mousedown', this.handleClickOutside);
-    this.setState({addNewTask: true});
+    this.setState({addNewTask: true, adjustScroll: true});
   }
 
   handleKeyboard = (event) => {
@@ -72,10 +81,10 @@ class StateColumn extends Component {
   addNewTaskButton = () => {
     if (!this.state.addNewTask) {
       return (
-        <a href='#' className='add-task-btn' onClick={this.openAddNewTask}>
+        <span href='#' className='add-task-btn' onClick={this.openAddNewTask}>
           <Icon name='plus'></Icon>
           <span>Add a task</span>
-        </a>
+        </span>
       );
     }
   }
