@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './UpdateTaskModal.css';
 import { Form, Input, TextArea, Icon } from 'semantic-ui-react';
+import Modal from './Modal';
 
 class UpdateTaskModal extends Component {
   constructor(props) {
@@ -12,35 +13,10 @@ class UpdateTaskModal extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
-    document.addEventListener('keydown', this.handleKeyboard);
     this.setState({
       title: this.props.task.title,
       description: this.props.task.description
     });
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-    document.removeEventListener('keydown', this.handleKeyboard);
-  }
-
-  setWrapperRef = (node) => {
-    this.wrapperRef = node;
-  }
-
-  handleClickOutside = (event) => {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.updateTask();
-      this.props.closeModal();
-    }
-  }
-
-  handleKeyboard = (event) => {
-    if (event.key === 'Escape') {
-      this.updateTask();
-      this.props.closeModal();
-    }
   }
 
   handleCloseBtn = () => {
@@ -64,9 +40,11 @@ class UpdateTaskModal extends Component {
 
   handleChange = (ev, { name, value }) => this.setState({ [name]: value });
 
+  setWrapperRef = (node) => this.wrapperRef = node;
+
   render() {
     return (
-      <div className='modal-overlay'>
+      <Modal updateTask={this.updateTask} closeModal={this.props.closeModal} wrapperRef={this.wrapperRef}>
         <div ref={this.setWrapperRef} className='modal-wrapper'>
           <Form autoComplete='off'>
             <div className='modal-header'>
@@ -98,9 +76,9 @@ class UpdateTaskModal extends Component {
             />
           </Form>
         </div>
-      </div>
+      </Modal>
     );
   }
-};
+}
 
 export default UpdateTaskModal;
