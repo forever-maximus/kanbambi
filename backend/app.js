@@ -7,10 +7,10 @@ app.options('*', cors());
 app.use(cors());
 
 var BoardController = require('./routes/BoardController');
-app.use('/boards', BoardController);
+app.use('/api/boards', BoardController);
 
 var TaskController = require('./routes/TaskController');
-app.use('/tasks', TaskController);
+app.use('/api/tasks', TaskController);
 
 models.sequelize.sync().then(() => {
   app.listen(8080, () => {

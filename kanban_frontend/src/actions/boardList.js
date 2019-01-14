@@ -1,4 +1,5 @@
 import axios from 'axios';
+import API_ROOT from '../config';
 
 export const GET_BOARD_LIST_REQUEST = 'GET_BOARD_LIST_REQUEST';
 export const GET_BOARD_LIST_SUCCESS = 'GET_BOARD_LIST_SUCCESS';
@@ -28,7 +29,7 @@ export function getBoardList() {
   return (dispatch) => {
     dispatch(getBoardListRequest());
 
-    axios.get('http://localhost:8080/boards')
+    axios.get(API_ROOT + '/boards')
       .then(response => {
         dispatch(getBoardListSuccess(response.data.boards));
       })

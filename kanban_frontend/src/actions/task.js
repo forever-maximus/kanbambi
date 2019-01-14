@@ -1,4 +1,5 @@
 import axios from 'axios';
+import API_ROOT from '../config';
 
 export const UPDATE_TASK_REQUEST = 'UPDATE_TASK_REQUEST';
 export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
@@ -29,7 +30,7 @@ export function updateTask(task) {
   return (dispatch) => {
     dispatch(updateTaskRequest(task));
 
-    axios.patch('http://localhost:8080/tasks/' + task.id, task)
+    axios.patch(API_ROOT + '/tasks/' + task.id, task)
       .then(response => {
         dispatch(updateTaskSuccess(response.data.task));
       })
@@ -69,7 +70,7 @@ export function addNewTask(task) {
   return (dispatch) => {
     dispatch(addNewTaskRequest(task));
 
-    axios.post('http://localhost:8080/tasks', task)
+    axios.post(API_ROOT + '/tasks', task)
       .then(response => {
         dispatch(addNewTaskSuccess(response.data.task));
       })
@@ -110,7 +111,7 @@ export function reorderTask(task, prevTaskIndex) {
   return (dispatch) => {
     dispatch(reorderTaskRequest(task, prevTaskIndex));
 
-    axios.patch('http://localhost:8080/tasks/' + task.id + '?prevOrder=' + (prevTaskIndex + 1), task)
+    axios.patch(API_ROOT + '/tasks/' + task.id + '?prevOrder=' + (prevTaskIndex + 1), task)
       .then(response => {
         dispatch(reorderTaskSuccess(response.data.task));
       })
@@ -154,7 +155,7 @@ export function changeTaskState(task, prevTaskIndex, taskPrevStateCol) {
 
     const endpoint = '/tasks/' + task.id + '?prevOrder=' + (prevTaskIndex + 1) + '&prevStateCol=' 
       + taskPrevStateCol;
-    axios.patch('http://localhost:8080' + endpoint, task)
+    axios.patch(API_ROOT + endpoint, task)
       .then(response => {
         dispatch(changeTaskStateSuccess(response.data.task));
       })

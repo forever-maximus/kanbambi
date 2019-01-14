@@ -1,4 +1,5 @@
 import axios from 'axios';
+import API_ROOT from '../config';
 
 export const GET_BOARD_REQUEST = 'GET_BOARD_REQUEST';
 export const GET_BOARD_SUCCESS = 'GET_BOARD_SUCCESS';
@@ -28,7 +29,7 @@ export function getBoard(id) {
   return (dispatch) => {
     dispatch(getBoardRequest());
 
-    axios.get('http://localhost:8080/boards/' + id)
+    axios.get(API_ROOT + '/boards/' + id)
       .then(response => {
         dispatch(getBoardSuccess(response.data.board));
       })
@@ -66,7 +67,7 @@ export function updateBoard(id, boardUpdate) {
   return (dispatch) => {
     dispatch(updateBoardRequest(boardUpdate));
 
-    axios.patch('http://localhost:8080/boards/' + id, boardUpdate)
+    axios.patch(API_ROOT + '/boards/' + id, boardUpdate)
       .then(response => {
         dispatch(updateBoardSuccess());
       })
