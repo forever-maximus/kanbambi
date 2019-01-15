@@ -1,8 +1,10 @@
-.column-grid-wrapper {
-  
-}
-
 .board-wrapper {
   width: 80%;
   margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .board-wrapper {
+    width: 100%;
+  }
 }

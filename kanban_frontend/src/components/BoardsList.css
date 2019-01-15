@@ -3,6 +3,12 @@
   margin: 0 auto;
 }
 
+@media (max-width: 1200px) {
+  .boards-list-parent-wrapper {
+    width: 100%;
+  }
+}
+
 .boards-list-header {
   text-align: left;
   padding: 2px 15px;

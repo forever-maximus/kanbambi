@@ -1,16 +1,24 @@
 .App {
   text-align: center;
-  height: 100%;
+	height: 100%;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 .app-main {
-  padding: 15px 0px;
+	padding: 15px;
+	width: 100%;
+	min-width: 900px;
 }
 
 .app-navbar {
   background-color: #335577;
   color: #ffffff;
-  padding: 4px;
+	padding: 4px;
+	position: sticky;
+	top: 0;
+	left: 0;
 }
 
 button, input[type="submit"], input[type="reset"] {
