@@ -21,8 +21,38 @@
 
 .boards-list-wrapper {
   display: flex;
+  width: 100%;
 }
 
-.boards-list-wrapper .board-item {
-  margin: 10px 5px !important;
+.board-item {
+  background-color: rgba(9, 45, 66, .08);
+  color: rgba(0,0,0,1);
+  border-radius: 5px;
+  transition-property: color .1s ease-in, background .1s ease-in;
+  padding: 20px;
+  width: 200px;
+  margin: 5px;
+}
+
+.board-item:hover {
+  background-color: rgba(9, 45, 66, 0.15);
+  color: rgba(0,0,0,1);
+  cursor: pointer;
+}
+
+.board-item .title {
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.add-new-board-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 15px;
+  border: dashed 1px;
+  background-color: #FFFFFF;
+  color: rgba(0,0,0,0.7);
 }

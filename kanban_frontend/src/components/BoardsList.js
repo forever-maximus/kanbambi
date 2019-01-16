@@ -1,26 +1,49 @@
-import React from 'react';
-import { Card, Icon } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Icon } from 'semantic-ui-react';
 import './BoardsList.css';
 
-const BoardsList = (props) => {
-  return (
-    <div className='boards-list-parent-wrapper'>
-      <div className='boards-list-header'>
-        <Icon name='user' />
-        <h3>Boards</h3>
+class BoardsList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isModalOpen: false
+    };
+  }
+
+  handleCreateNewBoard = () => this.setState({isModalOpen: true});
+
+  displayNewBoardModal = () => {
+    if (this.state.isModalOpen) {
+      console.log('Open new board modal!');
+    }
+  }
+
+  render() {
+    return (
+      <div className='boards-list-parent-wrapper'>
+        <div className='boards-list-header'>
+          <Icon name='user' />
+          <h3>Boards</h3>
+        </div>
+        <div className='boards-list-wrapper'>
+          {
+            this.props.boards.map((board, i) => (
+              <div className='board-item' key={i} onClick={this.props.chooseBoard(board.id)}>
+                <div className='title'>{board.name}</div>
+                <div className='description'>{board.description}</div>
+              </div>
+            ))
+          }
+          {
+            <div className='board-item add-new-board-wrapper' onClick={this.handleCreateNewBoard}>
+              <div><Icon name='plus' />Create new board...</div>
+            </div>
+          }
+        </div>
+        { this.displayNewBoardModal() }
       </div>
-      <div className='boards-list-wrapper'>
-        {
-          props.boards.map((board, i) => (
-            <Card className='board-item' key={i} onClick={props.chooseBoard(board.id)}>
-              <Card.Content header={board.name} />
-              <Card.Content description={board.description} />
-            </Card>
-          ))
-        }
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default BoardsList;
