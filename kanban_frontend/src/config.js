@@ -4,7 +4,7 @@ const hostname = window.location.hostname;
 if (hostname === 'localhost') {
   backendHost = 'http://localhost:8080';
 } else {
-  backendHost = 'http://172.104.162.144';
+  backendHost = 'http://kanbambi.maxbrereton.com';
 }
 
 const API_ROOT = `${backendHost}/api`;
