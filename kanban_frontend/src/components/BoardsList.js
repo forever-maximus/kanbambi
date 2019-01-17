@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
+import CreateBoardModal from './CreateBoardModal';
 import './BoardsList.css';
 
 class BoardsList extends Component {
@@ -12,9 +13,11 @@ class BoardsList extends Component {
 
   handleCreateNewBoard = () => this.setState({isModalOpen: true});
 
+  closeModal = () => this.setState({isModalOpen: false});
+
   displayNewBoardModal = () => {
     if (this.state.isModalOpen) {
-      console.log('Open new board modal!');
+      return <CreateBoardModal closeModal={this.closeModal} />;
     }
   }
 

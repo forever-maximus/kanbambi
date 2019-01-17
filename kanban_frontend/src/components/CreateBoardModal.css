@@ -1,0 +1,24 @@
+.create-board-modal-wrapper {
+  background-color: #ebeef0;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 50px;
+  width: 400px;
+}
+
+.create-board-modal-wrapper .input-wrapper {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.create-board-modal-wrapper .input-wrapper.name .ui.input {
+  width: 90%;
+}
+
+.create-board-modal-wrapper .close-modal {
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  cursor: pointer;
+  color: rgba(0,0,0,0.5);
+}
