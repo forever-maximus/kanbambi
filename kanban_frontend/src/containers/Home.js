@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import HomeView from '../components/HomeView';
 import { getBoardList } from '../actions/boardList';
+import { createBoard } from '../actions/board';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBoardList: () => dispatch(getBoardList())
+    getBoardList: () => dispatch(getBoardList()),
+    createBoard: (board) => dispatch(createBoard(board))
   };
 };
 

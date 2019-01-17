@@ -21,6 +21,7 @@
 
 .boards-list-wrapper {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -28,9 +29,10 @@
   background-color: rgba(9, 45, 66, .08);
   color: rgba(0,0,0,1);
   border-radius: 5px;
-  transition-property: color .1s ease-in, background .1s ease-in;
+  transition: color .1s ease-in, background .1s ease-in;
   padding: 20px;
-  width: 200px;
+  width: 220px;
+  min-height: 100px;
   margin: 5px;
 }
 

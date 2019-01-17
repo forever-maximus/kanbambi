@@ -35,6 +35,15 @@ class CreateBoardModal extends Component {
 
   setWrapperRef = (node) => this.wrapperRef = node;
 
+  handleCreateBoard = () => {
+    const board = {
+      name: this.state.name,
+      description: this.state.description
+    }
+    this.props.createBoard(board);
+    this.props.closeModal();
+  }
+
   render() {
     return (
       <Modal closeModal={this.props.closeModal} wrapperRef={this.wrapperRef}>
@@ -67,6 +76,7 @@ class CreateBoardModal extends Component {
                 disabled={this.state.submitDisabled}
                 color='green' 
                 content='Create Board'
+                onClick={this.handleCreateBoard}
               />
             </div>
           </Form>

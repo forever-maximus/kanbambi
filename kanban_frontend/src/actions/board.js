@@ -76,3 +76,42 @@ export function updateBoard(id, boardUpdate) {
       })
   }
 }
+
+
+export const CREATE_BOARD_REQUEST = 'CREATE_BOARD_REQUEST';
+export const CREATE_BOARD_SUCCESS = 'CREATE_BOARD_SUCCESS';
+export const CREATE_BOARD_FAILURE = 'CREATE_BOARD_FAILURE';
+
+function createBoardRequest() {
+  return {
+    type: CREATE_BOARD_REQUEST,
+  }
+}
+
+function createBoardSuccess(board) {
+  return {
+    type: CREATE_BOARD_SUCCESS,
+    board
+  }
+}
+
+function createBoardError(error) {
+  return {
+    type: CREATE_BOARD_FAILURE,
+    error
+  }
+}
+
+export function createBoard(board) {
+  return (dispatch) => {
+    dispatch(createBoardRequest());
+
+    axios.post(API_ROOT + '/boards', board)
+      .then(response => {
+        dispatch(createBoardSuccess(response.data.board));
+      })
+      .catch(error => {
+        dispatch(createBoardError(error));
+      });
+  }
+}

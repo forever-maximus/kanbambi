@@ -19,6 +19,7 @@ class HomeView extends Component {
       <BoardsList 
         boards={this.props.boards}
         chooseBoard={this.handleSelectBoard}
+        createBoard={this.props.createBoard}
       />
     );
   }

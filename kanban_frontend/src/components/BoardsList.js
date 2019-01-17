@@ -17,7 +17,12 @@ class BoardsList extends Component {
 
   displayNewBoardModal = () => {
     if (this.state.isModalOpen) {
-      return <CreateBoardModal closeModal={this.closeModal} />;
+      return (
+        <CreateBoardModal 
+          closeModal={this.closeModal} 
+          createBoard={this.props.createBoard}
+        />
+      );
     }
   }
 
