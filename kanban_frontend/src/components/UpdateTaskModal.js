@@ -48,7 +48,7 @@ class UpdateTaskModal extends Component {
         <div ref={this.setWrapperRef} className='modal-wrapper'>
           <Form autoComplete='off'>
             <div className='modal-header'>
-              <div>
+              <div className='icon-wrapper'>
                 <Icon name='folder open'/>
               </div>
               <Input 
@@ -58,22 +58,24 @@ class UpdateTaskModal extends Component {
                 name='title'
                 onChange={this.handleChange}
               />
-              <Icon name='close' className='close-btn' onClick={this.handleCloseBtn} />
+              <Icon name='close' circular className='close-btn' onClick={this.handleCloseBtn} />
             </div>
             <div className='label-wrapper'>
-              <div>
+              <div className='icon-wrapper'>
                 <Icon name='list ul' />
               </div>
               <label>Description</label>
             </div>
-            <TextArea 
-              className={`description editable modal-field`}
-              placeholder='description...' 
-              value={this.state.description} 
-              name='description'
-              onChange={this.handleChange}
-              autoHeight
-            />
+            <div className='description-wrapper'>
+              <TextArea 
+                className={`description editable modal-field`}
+                placeholder='description...' 
+                value={this.state.description} 
+                name='description'
+                onChange={this.handleChange}
+                autoHeight
+              />
+            </div>
           </Form>
         </div>
       </Modal>
