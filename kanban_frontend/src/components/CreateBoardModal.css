@@ -6,6 +6,12 @@
   width: 400px;
 }
 
+@media (max-width: 460px) {
+  .create-board-modal-wrapper {
+    width: 95%;
+  }
+}
+
 .create-board-modal-wrapper .input-wrapper {
   margin-bottom: 5px;
   text-align: left;
