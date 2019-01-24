@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import BoardView from '../components/BoardView';
 import { getBoard, updateBoard } from '../actions/board';
-import { updateTask, addNewTask, reorderTask, changeTaskState } from '../actions/task';
+import { updateTask, updateTaskRefresh, addNewTask, reorderTask, changeTaskState } from '../actions/task';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     board: state.boardReducer.board,
     stateColumns: state.boardReducer.stateColumns,
     tasks: state.boardReducer.tasks,
     error: state.boardReducer.error,
-    loading: state.boardReducer.loading
+    loading: state.boardReducer.loading,
+    websocket: ownProps.websocket,
+    clientId: ownProps.clientId
   };
 };
 
@@ -17,6 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getBoard: (id) => dispatch(getBoard(id)),
     updateTask: (task) => dispatch(updateTask(task)),
+    updateTaskRefresh: (task) => dispatch(updateTaskRefresh(task)),
     addNewTask: (task) => dispatch(addNewTask(task)),
     reorderTask: (task, prevTaskIndex) => dispatch(reorderTask(task, prevTaskIndex)),
     changeTaskState: (task, prevTaskIndex, taskPrevStateCol) => 

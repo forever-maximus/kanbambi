@@ -4,6 +4,7 @@ import API_ROOT from '../config';
 export const UPDATE_TASK_REQUEST = 'UPDATE_TASK_REQUEST';
 export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS';
 export const UPDATE_TASK_FAILURE = 'UPDATE_TASK_FAILURE';
+export const UPDATE_TASK_REFRESH = 'UPDATE_TASK_REFRESH';
 
 function updateTaskRequest(task) {
   return {
@@ -26,11 +27,18 @@ function updateTaskFailure(error) {
   }
 }
 
-export function updateTask(task) {
-  return (dispatch) => {
-    dispatch(updateTaskRequest(task));
+export function updateTaskRefresh(task) {
+  return {
+    type: UPDATE_TASK_REFRESH,
+    task
+  }
+}
 
-    axios.patch(API_ROOT + '/tasks/' + task.id, task)
+export function updateTask(data) {
+  return (dispatch) => {
+    dispatch(updateTaskRequest(data.task));
+
+    axios.patch(API_ROOT + '/tasks/' + data.task.id, data)
       .then(response => {
         dispatch(updateTaskSuccess(response.data.task));
       })

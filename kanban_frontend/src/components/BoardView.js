@@ -17,6 +17,16 @@ class BoardView extends Component {
   componentDidMount() {
     const boardId = this.props.match.params.id;
     this.props.getBoard(boardId);
+
+    this.props.websocket.onmessage = message => {
+      console.log(message.data);
+      const backend_update = JSON.parse(message.data)
+      this.props.updateTaskRefresh(backend_update);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.websocket.onmessage = null;
   }
 
   onDragEnd = result => {
@@ -56,6 +66,7 @@ class BoardView extends Component {
           closeModal={this.closeModal} 
           task={this.props.tasks[this.state.modalTaskId]} 
           updateTask={this.props.updateTask}
+          clientId={this.props.clientId}
         />
       );
     }

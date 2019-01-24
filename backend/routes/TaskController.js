@@ -1,5 +1,6 @@
 var express = require('express');
 var models = require('../models');
+var wss = require('../websocket');
 var router = express.Router();
 
 router.use(express.json());
@@ -102,12 +103,13 @@ function reorderTasks(req, res, prevOrder) {
 
 // Update task
 function updateTask(req, res) {
-  return models.task.update(req.body, {
+  return models.task.update(req.body.task, {
     where: {
       id: req.params.id
     }
   }).then(() => {
-    res.status(200).json({task: req.body});
+    res.status(200).json({task: req.body.task});
+    wss.updateOtherClients(req.body.clientId, req.body.task);
   });
 }
 

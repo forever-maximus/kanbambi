@@ -10,6 +10,7 @@ import {
   UPDATE_TASK_REQUEST,
   UPDATE_TASK_SUCCESS,
   UPDATE_TASK_FAILURE,
+  UPDATE_TASK_REFRESH,
   ADD_NEW_TASK_REQUEST,
   ADD_NEW_TASK_SUCCESS,
   ADD_NEW_TASK_FAILURE,
@@ -114,6 +115,15 @@ export function boardReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: action.error
+      }
+
+    case UPDATE_TASK_REFRESH:
+      return {
+        ...state,
+        tasks: {
+          ...state.tasks,
+          [action.task.id]: action.task
+        }
       }
 
     case ADD_NEW_TASK_REQUEST:

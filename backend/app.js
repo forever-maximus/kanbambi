@@ -2,6 +2,7 @@ var express = require('express');
 var models = require('./models');
 var cors = require('cors');
 var app = express();
+const websocket = require('./websocket');
 
 app.options('*', cors());
 app.use(cors());
