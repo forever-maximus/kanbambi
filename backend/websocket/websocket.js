@@ -7,9 +7,10 @@ wss.on('connection', (ws, req) => {
   ws.clientId = id;
 });
 
-wss.updateOtherClients = (id, data) => {
+wss.updateOtherClients = (id, data, eventType) => {
+  const updateData = {payload: data, eventType: eventType}
   wss.clients.forEach(client => {
-    if (client.clientId !== id) client.send(JSON.stringify(data));
+    if (client.clientId !== id) client.send(JSON.stringify(updateData));
   });
 }
 

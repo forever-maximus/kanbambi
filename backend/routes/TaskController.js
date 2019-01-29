@@ -1,6 +1,7 @@
 var express = require('express');
 var models = require('../models');
-var wss = require('../websocket');
+var wss = require('../websocket/websocket');
+const eventTypes = require('../websocket/ws_eventTypes');
 var router = express.Router();
 
 router.use(express.json());
@@ -109,7 +110,7 @@ function updateTask(req, res) {
     }
   }).then(() => {
     res.status(200).json({task: req.body.task});
-    wss.updateOtherClients(req.body.clientId, req.body.task);
+    wss.updateOtherClients(req.body.clientId, req.body.task, eventTypes.updateTask);
   });
 }
 

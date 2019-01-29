@@ -20,8 +20,12 @@ class BoardView extends Component {
 
     this.props.websocket.onmessage = message => {
       console.log(message.data);
-      const backend_update = JSON.parse(message.data)
-      this.props.updateTaskRefresh(backend_update);
+      const ws_message = JSON.parse(message.data);
+      const backend_update = ws_message.payload;
+      const eventType = ws_message.eventType;
+      if (eventType === 'updateTask') {
+        this.props.updateTaskRefresh(backend_update);
+      }
     }
   }
 
