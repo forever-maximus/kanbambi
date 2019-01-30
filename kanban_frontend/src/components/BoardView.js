@@ -21,10 +21,16 @@ class BoardView extends Component {
     this.props.websocket.onmessage = message => {
       console.log(message.data);
       const ws_message = JSON.parse(message.data);
-      const backend_update = ws_message.payload;
+      const update_from_backend = ws_message.payload;
       const eventType = ws_message.eventType;
+      const extraInfo = ws_message.details;
+
       if (eventType === 'updateTask') {
-        this.props.updateTaskRefresh(backend_update);
+        this.props.updateTaskRefresh(update_from_backend);
+      } else if (eventType === 'reorderTask') {
+        this.props.reorderTaskRefresh(update_from_backend, extraInfo.prevOrder);
+      } else if (eventType === 'changeTaskState') {
+        this.props.changeTaskStateRefresh(update_from_backend, extraInfo.prevOrder, extraInfo.prevStateCol);
       }
     }
   }
@@ -44,18 +50,21 @@ class BoardView extends Component {
     }
 
     const task = this.props.tasks[draggableId];
-    const newTask = {
-      ...task, 
-      stateColumnId: Number(destination.droppableId),
-      order: destination.index + 1
+    const taskData = {
+      clientId: this.props.clientId,
+      task: {
+        ...task, 
+        stateColumnId: Number(destination.droppableId),
+        order: destination.index + 1
+      }
     };
 
     if (destination.droppableId === source.droppableId) {
       // Dropped in same state column - therefore just a reorder
-      this.props.reorderTask(newTask, source.index);
+      this.props.reorderTask(taskData, source.index);
     } else {
       // Dropped in different state column - update task state and order
-      this.props.changeTaskState(newTask, source.index, source.droppableId);
+      this.props.changeTaskState(taskData, source.index, source.droppableId);
     }
   };
 

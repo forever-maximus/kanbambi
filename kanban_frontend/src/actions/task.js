@@ -92,6 +92,7 @@ export function addNewTask(task) {
 export const REORDER_TASK_REQUEST = 'REORDER_TASK_REQUEST';
 export const REORDER_TASK_SUCCESS = 'REORDER_TASK_SUCCESS';
 export const REORDER_TASK_FAILURE = 'REORDER_TASK_FAILURE';
+export const REORDER_TASK_REFRESH = 'REORDER_TASK_REFRESH';
 
 function reorderTaskRequest(task, prevTaskIndex) {
   return {
@@ -115,11 +116,19 @@ function reorderTaskFailure(error) {
   }
 }
 
-export function reorderTask(task, prevTaskIndex) {
-  return (dispatch) => {
-    dispatch(reorderTaskRequest(task, prevTaskIndex));
+export function reorderTaskRefresh(task, prevTaskIndex) {
+  return {
+    type: REORDER_TASK_REFRESH,
+    task,
+    prevTaskIndex
+  }
+}
 
-    axios.patch(API_ROOT + '/tasks/' + task.id + '?prevOrder=' + (prevTaskIndex + 1), task)
+export function reorderTask(taskData, prevTaskIndex) {
+  return (dispatch) => {
+    dispatch(reorderTaskRequest(taskData.task, prevTaskIndex));
+
+    axios.patch(API_ROOT + '/tasks/' + taskData.task.id + '?prevOrder=' + (prevTaskIndex + 1), taskData)
       .then(response => {
         dispatch(reorderTaskSuccess(response.data.task));
       })
@@ -133,6 +142,7 @@ export function reorderTask(task, prevTaskIndex) {
 export const CHANGE_TASK_STATE_REQUEST = 'CHANGE_TASK_STATE_REQUEST';
 export const CHANGE_TASK_STATE_SUCCESS = 'CHANGE_TASK_STATE_SUCCESS';
 export const CHANGE_TASK_STATE_FAILURE = 'CHANGE_TASK_STATE_FAILURE';
+export const CHANGE_TASK_STATE_REFRESH = 'CHANGE_TASK_STATE_REFRESH';
 
 function changeTaskStateRequest(task, prevTaskIndex, taskPrevStateCol) {
   return {
@@ -157,13 +167,22 @@ function changeTaskStateFailure(error) {
   }
 }
 
-export function changeTaskState(task, prevTaskIndex, taskPrevStateCol) {
-  return (dispatch) => {
-    dispatch(changeTaskStateRequest(task, prevTaskIndex, taskPrevStateCol));
+export function changeTaskStateRefresh(task, prevTaskIndex, taskPrevStateCol) {
+  return {
+    type: CHANGE_TASK_STATE_REFRESH,
+    task,
+    prevTaskIndex,
+    taskPrevStateCol
+  }
+}
 
-    const endpoint = '/tasks/' + task.id + '?prevOrder=' + (prevTaskIndex + 1) + '&prevStateCol=' 
-      + taskPrevStateCol;
-    axios.patch(API_ROOT + endpoint, task)
+export function changeTaskState(taskData, prevTaskIndex, taskPrevStateCol) {
+  return (dispatch) => {
+    dispatch(changeTaskStateRequest(taskData.task, prevTaskIndex, taskPrevStateCol));
+
+    const endpoint = '/tasks/' + taskData.task.id + '?prevOrder=' + (prevTaskIndex + 1) 
+      + '&prevStateCol=' + taskPrevStateCol;
+    axios.patch(API_ROOT + endpoint, taskData)
       .then(response => {
         dispatch(changeTaskStateSuccess(response.data.task));
       })
