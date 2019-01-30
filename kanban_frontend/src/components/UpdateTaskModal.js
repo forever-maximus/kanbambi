@@ -36,6 +36,7 @@ class UpdateTaskModal extends Component {
         }
         const data = {
           clientId: this.props.clientId,
+          boardId: this.props.boardId,
           task: task
         }
         this.props.updateTask(data);

@@ -118,6 +118,7 @@ class StateColumn extends Component {
     }
     const data = {
       clientId: this.props.clientId,
+      boardId: this.props.boardId,
       task: newTask
     };
     this.props.addNewTask(data);

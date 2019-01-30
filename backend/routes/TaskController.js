@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
       order: req.body.task.order,
     }).then(task => {
       res.status(201).json({task: task});
-      wss.updateOtherClients(req.body.clientId, task, eventTypes.createTask);
+      wss.updateOtherClients(req.body.clientId, req.body.boardId, task, eventTypes.createTask);
     });
   }
 });
@@ -116,7 +116,7 @@ function updateTask(req, res, eventType, details = {}) {
     }
   }).then(() => {
     res.status(200).json({task: req.body.task});
-    wss.updateOtherClients(req.body.clientId, req.body.task, eventType, details);
+    wss.updateOtherClients(req.body.clientId, req.body.boardId, req.body.task, eventType, details);
   });
 }
 

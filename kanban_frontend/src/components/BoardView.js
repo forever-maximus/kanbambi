@@ -12,6 +12,26 @@ class BoardView extends Component {
       isModalOpen: false,
       modalTaskId: ''
     }
+
+    this.subscribeWebsocket();
+  }
+
+  subscribeWebsocket = () => {
+    // send message to subscribe to updates for this board.
+    if (this.props.websocket.readyState === 1) {
+      // Check that websocket is connected.
+      this.props.websocket.send(JSON.stringify({
+        currentBoard: this.props.match.params.id
+      })); 
+    }
+
+    this.props.websocket.onopen = () => {
+      // This is required if a user loads straight to a board without going via homepage,
+      // as websocket connection will not be established yet.
+      this.props.websocket.send(JSON.stringify({
+        currentBoard: this.props.match.params.id
+      })); 
+    }
   }
 
   componentDidMount() {
@@ -54,6 +74,7 @@ class BoardView extends Component {
     const task = this.props.tasks[draggableId];
     const taskData = {
       clientId: this.props.clientId,
+      boardId: this.props.match.params.id,
       task: {
         ...task, 
         stateColumnId: Number(destination.droppableId),
@@ -82,6 +103,7 @@ class BoardView extends Component {
           task={this.props.tasks[this.state.modalTaskId]} 
           updateTask={this.props.updateTask}
           clientId={this.props.clientId}
+          boardId={this.props.match.params.id}
         />
       );
     }
@@ -105,6 +127,7 @@ class BoardView extends Component {
               openModal={this.openModal}
               isModalOpen={this.state.isModalOpen}
               clientId={this.props.clientId}
+              boardId={this.props.match.params.id}
             />
           </div>
         </DragDropContext>

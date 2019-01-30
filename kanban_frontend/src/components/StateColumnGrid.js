@@ -28,6 +28,7 @@ class StateColumnGrid extends Component {
                     isModalOpen={this.props.isModalOpen}
                     addNewTask={this.props.addNewTask}
                     clientId={this.props.clientId}
+                    boardId={this.props.boardId}
                   />
               </Grid.Column>
             ))}
