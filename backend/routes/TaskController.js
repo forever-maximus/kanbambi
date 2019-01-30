@@ -8,22 +8,23 @@ router.use(express.json());
 
 // Create new task
 router.post('/', (req, res) => {
-  if (!('title' in req.body)) {
+  if (!('title' in req.body.task)) {
     res.status(400).json({error: "Missing required field 'title'"});
-  } else if (!('description' in req.body)) {
+  } else if (!('description' in req.body.task)) {
     res.status(400).json({error: "Missing required field 'description'"});
-  } else if (!('stateColumnId' in req.body)) {
+  } else if (!('stateColumnId' in req.body.task)) {
     res.status(400).json({error: "Missing required field 'stateColumnId'"});
-  } else if (!('order' in req.body)) {
+  } else if (!('order' in req.body.task)) {
     res.status(400).json({error: "Missing required field 'order'"});
   } else {
     models.task.create({
-      title: req.body.title,
-      description: req.body.description,
-      stateColumnId: req.body.stateColumnId,
-      order: req.body.order,
+      title: req.body.task.title,
+      description: req.body.task.description,
+      stateColumnId: req.body.task.stateColumnId,
+      order: req.body.task.order,
     }).then(task => {
       res.status(201).json({task: task});
+      wss.updateOtherClients(req.body.clientId, task, eventTypes.createTask);
     });
   }
 });

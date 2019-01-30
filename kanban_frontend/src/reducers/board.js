@@ -14,6 +14,7 @@ import {
   ADD_NEW_TASK_REQUEST,
   ADD_NEW_TASK_SUCCESS,
   ADD_NEW_TASK_FAILURE,
+  ADD_NEW_TASK_REFRESH,
   REORDER_TASK_REQUEST,
   REORDER_TASK_SUCCESS,
   REORDER_TASK_FAILURE,
@@ -135,6 +136,7 @@ export function boardReducer(state = initialState, action) {
       }
 
     case ADD_NEW_TASK_SUCCESS:
+    case ADD_NEW_TASK_REFRESH:
       return {
         ...state,
         stateColumns: {

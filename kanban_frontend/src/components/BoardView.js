@@ -25,7 +25,9 @@ class BoardView extends Component {
       const eventType = ws_message.eventType;
       const extraInfo = ws_message.details;
 
-      if (eventType === 'updateTask') {
+      if (eventType === 'createTask') {
+        this.props.addNewTaskRefresh(update_from_backend);
+      } else if (eventType === 'updateTask') {
         this.props.updateTaskRefresh(update_from_backend);
       } else if (eventType === 'reorderTask') {
         this.props.reorderTaskRefresh(update_from_backend, extraInfo.prevOrder);
@@ -102,6 +104,7 @@ class BoardView extends Component {
               addNewTask={this.props.addNewTask}
               openModal={this.openModal}
               isModalOpen={this.state.isModalOpen}
+              clientId={this.props.clientId}
             />
           </div>
         </DragDropContext>

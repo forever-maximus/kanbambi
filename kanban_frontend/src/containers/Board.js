@@ -5,6 +5,7 @@ import {
   updateTask, 
   updateTaskRefresh, 
   addNewTask, 
+  addNewTaskRefresh, 
   reorderTask, 
   reorderTaskRefresh,
   changeTaskState,
@@ -29,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
     updateTask: (task) => dispatch(updateTask(task)),
     updateTaskRefresh: (task) => dispatch(updateTaskRefresh(task)),
     addNewTask: (task) => dispatch(addNewTask(task)),
+    addNewTaskRefresh: (task) => dispatch(addNewTaskRefresh(task)),
     reorderTask: (task, prevTaskIndex) => dispatch(reorderTask(task, prevTaskIndex)),
     reorderTaskRefresh: (task, prevTaskIndex) => dispatch(reorderTaskRefresh(task, prevTaskIndex)),
     changeTaskState: (task, prevTaskIndex, taskPrevStateCol) => 

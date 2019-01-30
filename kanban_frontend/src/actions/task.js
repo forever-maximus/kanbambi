@@ -52,6 +52,7 @@ export function updateTask(data) {
 export const ADD_NEW_TASK_REQUEST = 'ADD_NEW_TASK_REQUEST';
 export const ADD_NEW_TASK_SUCCESS = 'ADD_NEW_TASK_SUCCESS';
 export const ADD_NEW_TASK_FAILURE = 'ADD_NEW_TASK_FAILURE';
+export const ADD_NEW_TASK_REFRESH = 'ADD_NEW_TASK_REFRESH';
 
 function addNewTaskRequest(task) {
   return {
@@ -74,11 +75,18 @@ function addNewTaskFailure(error) {
   }
 }
 
-export function addNewTask(task) {
-  return (dispatch) => {
-    dispatch(addNewTaskRequest(task));
+export function addNewTaskRefresh(task) {
+  return {
+    type: ADD_NEW_TASK_REFRESH,
+    task
+  }
+}
 
-    axios.post(API_ROOT + '/tasks', task)
+export function addNewTask(taskData) {
+  return (dispatch) => {
+    dispatch(addNewTaskRequest(taskData.task));
+
+    axios.post(API_ROOT + '/tasks', taskData)
       .then(response => {
         dispatch(addNewTaskSuccess(response.data.task));
       })

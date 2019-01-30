@@ -116,7 +116,11 @@ class StateColumn extends Component {
       order: this.props.column.tasks.length + 1,
       stateColumnId: this.props.column.id
     }
-    this.props.addNewTask(newTask);
+    const data = {
+      clientId: this.props.clientId,
+      task: newTask
+    };
+    this.props.addNewTask(data);
     this.cancelNewTask();
   }
 
