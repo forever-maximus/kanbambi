@@ -39,7 +39,6 @@ class BoardView extends Component {
     this.props.getBoard(boardId);
 
     this.props.websocket.onmessage = message => {
-      console.log(message.data);
       const ws_message = JSON.parse(message.data);
       const update_from_backend = ws_message.payload;
       const eventType = ws_message.eventType;

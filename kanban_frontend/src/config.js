@@ -7,7 +7,7 @@ if (hostname === 'localhost') {
   wsAddress = 'ws://localhost:8081';
 } else {
   backendHost = 'https://kanbambi.maxbrereton.com';
-  wsAddress = 'wss://kanbambi.maxbrereton:8081.com';
+  wsAddress = 'wss://kanbambi.maxbrereton.com:8020';
 }
 
 const API_ROOT = `${backendHost}/api`;
