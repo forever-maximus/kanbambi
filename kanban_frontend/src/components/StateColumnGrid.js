@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Loader } from 'semantic-ui-react';
 import StateColumn from './StateColumn';
 
 const columnStyle = {
@@ -10,9 +10,9 @@ class StateColumnGrid extends Component {
 
   displayStateColumns = () => {
     const stateColumns = this.props.stateColumns;
-    if (Object.keys(stateColumns).length === 0) {
-      // Empty - therefore still loading
-      return "loading";
+    if (this.props.loading || Object.keys(stateColumns).length === 0) {
+      // Still loading board
+      return <Loader active content="Loading" />;
     }
 
     return (

@@ -127,6 +127,7 @@ class BoardView extends Component {
               isModalOpen={this.state.isModalOpen}
               clientId={this.props.clientId}
               boardId={this.props.match.params.id}
+              loading={this.props.loading}
             />
           </div>
         </DragDropContext>
