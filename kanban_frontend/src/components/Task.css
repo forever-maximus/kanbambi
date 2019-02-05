@@ -1,4 +1,19 @@
 .task-container {
   width: 90%;
   margin: 0px 0px 10px;
+  text-align: left;
+}
+
+.task-container .ui.card>.content>.title {
+  padding: 0px 0px 5px;
+}
+
+.task-container .task-label {
+  width: 40px;
+  height: 8px;
+  border-radius: 5px;
+}
+
+.task-container .label-wrapper {
+  padding: 0px 0px 5px;
 }

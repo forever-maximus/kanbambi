@@ -13,5 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
+  Task.associate = function(models) {
+    Task.belongsToMany(models.label, {through: 'task_label_mapper'});
+  }
+
   return Task;
 }

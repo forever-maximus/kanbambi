@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
     board: state.boardReducer.board,
     stateColumns: state.boardReducer.stateColumns,
     tasks: state.boardReducer.tasks,
+    labels: state.boardReducer.labels,
     error: state.boardReducer.error,
     loading: state.boardReducer.loading,
     websocket: ownProps.websocket,

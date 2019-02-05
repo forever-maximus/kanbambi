@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Board.associate = function(models) {
     Board.hasMany(models.state_column);
+    Board.hasMany(models.label);
   }
 
   return Board;

@@ -144,6 +144,7 @@ class StateColumn extends Component {
                       key={this.props.column.id} 
                       taskIds={this.props.column.tasks} 
                       tasks={this.props.tasks} 
+                      labels={this.props.labels} 
                       openModal={this.props.openModal}
                     />
                     { this.createNewTaskComponent() }

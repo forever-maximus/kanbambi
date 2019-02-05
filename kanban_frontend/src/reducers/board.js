@@ -31,6 +31,7 @@ const initialState = {
   board: {},
   stateColumns: {},
   tasks: {},
+  labels: {},
   error: null
 };
 
@@ -45,7 +46,14 @@ export function boardReducer(state = initialState, action) {
     case GET_BOARD_SUCCESS:
       let stateColumns = arrayToObject(action.board.state_columns, 'id');
       const stateColumnIds = action.board.state_columns.map(column => column.id);
-      const board = {...action.board, state_columns: stateColumnIds};
+      const labels = arrayToObject(action.board.labels, 'id');
+      const labelIds = action.board.labels.map(label => label.id);
+
+      const board = {
+        ...action.board, 
+        state_columns: stateColumnIds, 
+        labels: labelIds
+      };
 
       let tasks = {};
       Object.entries(stateColumns).forEach(([key, value]) => {
@@ -54,13 +62,18 @@ export function boardReducer(state = initialState, action) {
         value.tasks = value.tasks.map(task => task.id);
       });
 
+      Object.entries(tasks).forEach(([key, task]) => {
+        task.labels = task.labels.map(label => label.id);
+      });
+
       return {
         ...state,
         loading: false,
         error: null,
         board: board,
         stateColumns: stateColumns,
-        tasks: tasks
+        tasks: tasks,
+        labels: labels
       }
 
     case GET_BOARD_FAILURE:
@@ -100,7 +113,10 @@ export function boardReducer(state = initialState, action) {
         ...state,
         tasks: {
           ...state.tasks,
-          [action.task.id]: action.task
+          [action.task.id]: {
+            ...state.tasks[action.task.id], 
+            ...action.task
+          }
         },
         loading: true
       }

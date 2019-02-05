@@ -14,11 +14,9 @@ router.get('/', (req, res) => {
 // Get specific kanban board and related components
 router.get('/:id', (req, res) => {
   models.board.findByPk(req.params.id, {
-    include: [{
-      model: models.state_column, 
-      include: [{
-        model: models.task
-      }]
+    include: [{ 
+      all: true, 
+      nested: true 
     }],
     order: [
       [models.state_column, 'order', 'asc'],
@@ -54,9 +52,19 @@ router.post('/', (req, res) => {
         { name: 'To Do', order: 1 },
         { name: 'In Progress', order: 2 },
         { name: 'Done', order: 3 },
+      ],
+      labels: [
+        { colour: '#E21342' },
+        { colour: '#22A352' },
+        { colour: '#3278F2' },
+        { colour: '#DD78AC' },
+        { colour: '#FA9A15' }
       ]
     }, {
-      include: [ models.state_column ]
+      include: [ 
+        models.state_column,
+        models.label
+      ]
     }).then(board => {
       res.status(201).json({board: board});
     });

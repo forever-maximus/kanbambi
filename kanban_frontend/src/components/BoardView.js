@@ -121,6 +121,7 @@ class BoardView extends Component {
               board={this.props.board} 
               stateColumns={this.props.stateColumns}
               tasks={this.props.tasks}
+              labels={this.props.labels}
               updateTask={this.props.updateTask} 
               addNewTask={this.props.addNewTask}
               openModal={this.openModal}

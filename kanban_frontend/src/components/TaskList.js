@@ -8,6 +8,7 @@ const TaskList = props => (
       <Task 
         key={i} 
         task={task} 
+        labels={props.labels}
         index={i} 
         openModal={props.openModal} 
       />
