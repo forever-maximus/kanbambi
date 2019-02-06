@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-.modal-overlay .label-wrapper {
+.modal-overlay .heading-wrapper {
   text-align: left;
   font-weight: 600;
   font-size: 16px;
@@ -49,9 +49,8 @@
 }
 
 .modal-wrapper .ui.form .description {
-  border: 1px solid #ebeef0;
-  background: none;
-  width: 96%;
+  background: #f5f5f5;
+  width: 93%;
 }
 
 .modal-wrapper .ui.form .description:focus {
@@ -62,7 +61,7 @@
 .modal-wrapper .modal-header .icon {
   color: rgba(0, 0, 0, 0.5);
 }
-.modal-wrapper .label-wrapper .icon {
+.modal-wrapper .heading-wrapper .icon {
   color: rgba(0, 0, 0, 0.5);
 }
 
@@ -88,6 +87,49 @@
   text-align: right;
 }
 
-.modal-wrapper .label-wrapper label {
+.modal-wrapper .heading-wrapper label {
   padding: 0px 7px;
+}
+
+.update-task-form .task-label {
+  height: 22px;
+  min-width: 30px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.update-task-form .ui.icon.button.add-label {
+  height: 22px;
+  min-width: 30px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  color: #6b808c;
+  background-color: rgba(9,45,66,.08);
+}
+.update-task-form .ui.icon.button.add-label:hover {
+  background-color: rgba(9,45,66,.1);
+}
+
+
+.update-task-form .label-component {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 7%;
+  padding: 0px 0px 10px;
+}
+
+.update-task-form .label-component h3 {
+  color: #6b808c;
+  font-weight: 600;
+  font-size: 12px;
+  margin: 0px 0px 3px;
+}
+
+.update-task-form .label-display {
+  display: flex;
 }

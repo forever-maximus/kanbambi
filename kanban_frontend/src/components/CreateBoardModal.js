@@ -33,8 +33,6 @@ class CreateBoardModal extends Component {
 
   handleChange = (ev, { name, value }) => this.setState({ [name]: value });
 
-  setWrapperRef = (node) => this.wrapperRef = node;
-
   handleCreateBoard = () => {
     const board = {
       name: this.state.name,
@@ -46,8 +44,8 @@ class CreateBoardModal extends Component {
 
   render() {
     return (
-      <Modal closeModal={this.props.closeModal} wrapperRef={this.wrapperRef}>
-        <div ref={this.setWrapperRef} className='create-board-modal-wrapper'>
+      <Modal closeModal={this.props.closeModal}>
+        <div id='create-board-modal' className='create-board-modal-wrapper'>
           <Form autoComplete='off'>
             <Icon 
               name='close' 

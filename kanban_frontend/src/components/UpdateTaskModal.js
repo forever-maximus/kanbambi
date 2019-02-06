@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './UpdateTaskModal.css';
 import { Form, Input, TextArea, Icon } from 'semantic-ui-react';
 import Modal from './Modal';
+import LabelList from './LabelList';
+import LabelEditorContainer from './LabelEditorContainer';
 
 class UpdateTaskModal extends Component {
   constructor(props) {
@@ -45,13 +47,11 @@ class UpdateTaskModal extends Component {
 
   handleChange = (ev, { name, value }) => this.setState({ [name]: value });
 
-  setWrapperRef = (node) => this.wrapperRef = node;
-
   render() {
     return (
-      <Modal updateTask={this.updateTask} closeModal={this.props.closeModal} wrapperRef={this.wrapperRef}>
-        <div ref={this.setWrapperRef} className='modal-wrapper'>
-          <Form autoComplete='off'>
+      <Modal updateTask={this.updateTask} closeModal={this.props.closeModal}>
+        <div id='update-task-modal' className='modal-wrapper'>
+          <Form autoComplete='off' className='update-task-form'>
             <div className='modal-header'>
               <div className='icon-wrapper'>
                 <Icon name='folder open'/>
@@ -65,7 +65,17 @@ class UpdateTaskModal extends Component {
               />
               <Icon name='close' circular className='close-btn' onClick={this.handleCloseBtn} />
             </div>
-            <div className='label-wrapper'>
+            <div className='label-component'>
+              <h3>LABELS</h3>
+              <div className='label-display'>
+                <LabelList 
+                  task={this.props.task}
+                  labels={this.props.labels}
+                />
+                <LabelEditorContainer />
+              </div>
+            </div>
+            <div className='heading-wrapper'>
               <div className='icon-wrapper'>
                 <Icon name='list ul' />
               </div>

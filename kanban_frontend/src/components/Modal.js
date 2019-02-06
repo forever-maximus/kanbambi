@@ -3,17 +3,18 @@ import './Modal.css';
 
 class Modal extends Component {
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    this.wrapperRef = document.getElementById(this.props.children.props.id);
+    document.addEventListener('click', this.handleClickOutside);
     document.addEventListener('keydown', this.handleKeyboard);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('click', this.handleClickOutside);
     document.removeEventListener('keydown', this.handleKeyboard);
   }
 
   handleClickOutside = (event) => {
-    if (this.props.wrapperRef && !this.props.wrapperRef.contains(event.target)) {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       if ('updateTask' in this.props) {
         this.props.updateTask();
       }

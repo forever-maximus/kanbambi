@@ -100,6 +100,7 @@ class BoardView extends Component {
         <UpdateTaskModal 
           closeModal={this.closeModal} 
           task={this.props.tasks[this.state.modalTaskId]} 
+          labels={this.props.labels}
           updateTask={this.props.updateTask}
           clientId={this.props.clientId}
           boardId={this.props.match.params.id}
