@@ -21,10 +21,8 @@ class UpdateTaskModal extends Component {
     });
   }
 
-  handleCloseBtn = () => {
-    this.updateTask();
-    this.props.closeModal();
-  }
+  // Calls update method when closing modal for this modal specifically
+  handleCloseBtn = () => this.props.closeModal();
 
   updateTask = () => {
     // Check if the task has been updated
@@ -45,11 +43,25 @@ class UpdateTaskModal extends Component {
     }
   }
 
+  updateTaskLabel = (labelId) => {
+    const data = {
+      clientId: this.props.clientId,
+      boardId: this.props.boardId,
+      labelId: labelId,
+      taskId: this.props.task.id
+    }
+    if (this.props.task.labels.includes(labelId)) {
+      this.props.removeTaskLabel(data);
+    } else {
+      this.props.addTaskLabel(data);
+    }
+  }
+
   handleChange = (ev, { name, value }) => this.setState({ [name]: value });
 
   render() {
     return (
-      <Modal updateTask={this.updateTask} closeModal={this.props.closeModal}>
+      <Modal updateTask={this.updateTask} closeModal={this.props.closeModal} >
         <div id='update-task-modal' className='modal-wrapper'>
           <Form autoComplete='off' className='update-task-form'>
             <div className='modal-header'>
@@ -63,7 +75,7 @@ class UpdateTaskModal extends Component {
                 name='title'
                 onChange={this.handleChange}
               />
-              <Icon name='close' circular className='close-btn' onClick={this.handleCloseBtn} />
+              <Icon tabIndex='1' name='close' circular className='close-btn' onClick={this.handleCloseBtn} />
             </div>
             <div className='label-component'>
               <h3>LABELS</h3>
@@ -72,7 +84,11 @@ class UpdateTaskModal extends Component {
                   task={this.props.task}
                   labels={this.props.labels}
                 />
-                <LabelEditorContainer />
+                <LabelEditorContainer 
+                  labels={this.props.labels} 
+                  task={this.props.task} 
+                  updateTaskLabel={this.updateTaskLabel}
+                />
               </div>
             </div>
             <div className='heading-wrapper'>

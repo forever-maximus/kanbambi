@@ -13,13 +13,6 @@ class CreateBoardModal extends Component {
     }
   }
 
-  componentDidMount() {
-    // TODO - this hack is just to cause the wrapperRef for the modal window to be passed to the
-    // modal parent component - on initial render wrapperRef isn't set in time to be passed to modal
-    // REPLACE THIS WITH SOMETHING BETTER!
-    this.forceUpdate();
-  }
-
   componentDidUpdate() {
     if (this.state.submitDisabled && this.state.name !== '' && this.state.description !== '') {
       this.setState({submitDisabled: false});

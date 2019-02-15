@@ -9,7 +9,11 @@ import {
   reorderTask, 
   reorderTaskRefresh,
   changeTaskState,
-  changeTaskStateRefresh
+  changeTaskStateRefresh,
+  addTaskLabel,
+  addTaskLabelRefresh,
+  removeTaskLabel,
+  removeTaskLabelRefresh
 } from '../actions/task';
 
 const mapStateToProps = (state, ownProps) => {
@@ -38,6 +42,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(changeTaskState(task, prevTaskIndex, taskPrevStateCol)),
     changeTaskStateRefresh: (task, prevTaskIndex, taskPrevStateCol) => 
       dispatch(changeTaskStateRefresh(task, prevTaskIndex, taskPrevStateCol)),
+    addTaskLabel: (taskLabel) => dispatch(addTaskLabel(taskLabel)),
+    addTaskLabelRefresh: (taskLabel) => dispatch(addTaskLabelRefresh(taskLabel)),
+    removeTaskLabel: (taskLabel) => dispatch(removeTaskLabel(taskLabel)),
+    removeTaskLabelRefresh: (taskLabel) => dispatch(removeTaskLabelRefresh(taskLabel)),
     updateBoard: (id, boardUpdate) => dispatch(updateBoard(id, boardUpdate))
   };
 };

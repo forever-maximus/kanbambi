@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-.modal-overlay .heading-wrapper {
+.modal-wrapper .heading-wrapper {
   text-align: left;
   font-weight: 600;
   font-size: 16px;
@@ -73,6 +73,9 @@
   cursor: pointer;
   box-shadow: none;
 }
+.modal-wrapper .icon.close-btn:focus {
+  outline: none;
+}
 
 .modal-wrapper .icon.close-btn:hover {
   background-color: #dadde0;
@@ -98,6 +101,10 @@
   margin-right: 5px;
 }
 
+.update-task-form .label-wrapper {
+  display: flex;
+}
+
 .update-task-form .ui.icon.button.add-label {
   height: 22px;
   min-width: 30px;
@@ -111,7 +118,7 @@
   background-color: rgba(9,45,66,.08);
 }
 .update-task-form .ui.icon.button.add-label:hover {
-  background-color: rgba(9,45,66,.1);
+  background-color: rgba(0,36,57,.1);
 }
 
 

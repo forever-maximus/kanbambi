@@ -42,9 +42,7 @@ class BoardHeader extends Component {
         >
           <div className='popup-header'>
             <span>Rename Board</span>
-            <span className='close-button' onClick={this.closePopup}>
-              <Icon name='close' />
-            </span>
+            <Icon circular name='close' className='close-button' onClick={this.closePopup} />
           </div>
           <Divider />
           <div>
@@ -56,6 +54,7 @@ class BoardHeader extends Component {
               name='renameInput'
               onChange={this.handleChange}
               onKeyPress={this.handleKeyPress}
+              autoComplete='off'
             />
             <Button 
               color='green' 

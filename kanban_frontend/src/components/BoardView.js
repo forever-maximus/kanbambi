@@ -52,6 +52,11 @@ class BoardView extends Component {
         this.props.reorderTaskRefresh(update_from_backend, extraInfo.prevOrder);
       } else if (eventType === 'changeTaskState') {
         this.props.changeTaskStateRefresh(update_from_backend, extraInfo.prevOrder, extraInfo.prevStateCol);
+      } else if (eventType === 'addTaskLabel') {
+        this.props.addTaskLabelRefresh(update_from_backend);
+      } else if (eventType === 'removeTaskLabel') {
+        console.log(update_from_backend);
+        this.props.removeTaskLabelRefresh(update_from_backend);
       }
     }
   }
@@ -102,6 +107,8 @@ class BoardView extends Component {
           task={this.props.tasks[this.state.modalTaskId]} 
           labels={this.props.labels}
           updateTask={this.props.updateTask}
+          addTaskLabel={this.props.addTaskLabel}
+          removeTaskLabel={this.props.removeTaskLabel}
           clientId={this.props.clientId}
           boardId={this.props.match.params.id}
         />

@@ -22,7 +22,15 @@ import {
   CHANGE_TASK_STATE_REQUEST,
   CHANGE_TASK_STATE_SUCCESS,
   CHANGE_TASK_STATE_FAILURE,
-  CHANGE_TASK_STATE_REFRESH
+  CHANGE_TASK_STATE_REFRESH,
+  ADD_TASK_LABEL_REQUEST,
+  ADD_TASK_LABEL_SUCCESS,
+  ADD_TASK_LABEL_FAILURE,
+  ADD_TASK_LABEL_REFRESH,
+  REMOVE_TASK_LABEL_REQUEST,
+  REMOVE_TASK_LABEL_SUCCESS,
+  REMOVE_TASK_LABEL_FAILURE,
+  REMOVE_TASK_LABEL_REFRESH
 } from '../actions/task';
 import { arrayToObject } from '../utils';
 
@@ -141,7 +149,10 @@ export function boardReducer(state = initialState, action) {
         ...state,
         tasks: {
           ...state.tasks,
-          [action.task.id]: action.task
+          [action.task.id]: {
+            ...state.tasks[action.task.id], 
+            ...action.task
+          }
         }
       }
 
@@ -311,6 +322,63 @@ export function boardReducer(state = initialState, action) {
         }
       }
     }
+
+    case ADD_TASK_LABEL_REQUEST:
+    case ADD_TASK_LABEL_REFRESH:
+      return {
+        ...state,
+        tasks: {
+          ...state.tasks,
+          [action.taskId]: {
+            ...state.tasks[action.taskId],
+            labels: [...state.tasks[action.taskId].labels, Number(action.labelId)]
+          }
+        }
+      }
+
+    case ADD_TASK_LABEL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case ADD_TASK_LABEL_FAILURE:
+    // TODO - if there was an error need to roll back state to show previous state
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    case REMOVE_TASK_LABEL_REQUEST:
+    case REMOVE_TASK_LABEL_REFRESH:
+      const updatedLabels = state.tasks[action.taskId].labels.filter(labelId => labelId !== Number(action.labelId));
+      return {
+        ...state,
+        tasks: {
+          ...state.tasks,
+          [action.taskId]: {
+            ...state.tasks[action.taskId],
+            labels: updatedLabels
+          }
+        }
+      }
+
+    case REMOVE_TASK_LABEL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case REMOVE_TASK_LABEL_FAILURE:
+    // TODO - if there was an error need to roll back state to show previous state
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
 
     default:
       return state;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 import LabelEditor from './LabelEditor';
+import FocusTrap from 'focus-trap-react';
 
 class LabelEditorContainer extends Component {
   constructor(props) {
@@ -13,20 +14,30 @@ class LabelEditorContainer extends Component {
   displayLabelEditor = () => {
     if (this.state.displayLabelEditor) {
       return (
-        <LabelEditor 
-          closeEditor={this.toggleLabelEditorDisplay}
-        />
+        <FocusTrap
+          focusTrapOptions={{
+            onDeactivate: this.unmountTrap,
+            clickOutsideDeactivates: true
+          }}
+        >
+          <LabelEditor 
+            closeEditor={this.unmountTrap}
+            labels={this.props.labels}
+            task={this.props.task}
+            updateTaskLabel={this.props.updateTaskLabel}
+          />
+        </FocusTrap>
       );
     }
   }
 
-  toggleLabelEditorDisplay = () => this.setState({displayLabelEditor: !this.state.displayLabelEditor});
+  unmountTrap = () => this.setState({displayLabelEditor: false});
 
-  setWrapperRef = (node) => this.wrapperRef = node;
+  toggleLabelEditorDisplay = () => this.setState({displayLabelEditor: !this.state.displayLabelEditor});
 
   render() {
     return (
-      <div>
+      <div className='add-label-wrapper'>
         <Button 
           className='add-label' 
           icon='add' 

@@ -34,13 +34,15 @@
   text-align: center;
 }
 
-.rename-board-popup .close-button {
+.rename-board-popup i.icon.close-button {
   position: absolute;
   right: 3px;
   top: 7px;
-  padding: 5px;
+  box-shadow: none;
+  margin: 0px;
 }
 
 .rename-board-popup .close-button:hover {
   cursor: pointer;
+  background-color: #eaedf0;
 }

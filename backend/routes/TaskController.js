@@ -120,4 +120,35 @@ function updateTask(req, res, eventType, details = {}) {
   });
 }
 
+// Add label to a task
+router.patch('/:taskId/labels/:labelId', (req, res) => {
+  models.task.findByPk(req.params.taskId).then(task => {
+    task.addLabel(req.params.labelId).then(taskLabel => {
+      res.status(200).json({taskLabel: taskLabel});
+      const data = {
+        taskId: req.params.taskId,
+        labelId: req.params.labelId
+      }
+      wss.updateOtherClients(req.body.clientId, req.body.boardId, data, eventTypes.addTaskLabel);
+    });
+  });
+});
+
+// Remove label from a task
+router.delete('/:taskId/labels/:labelId', (req,res) => {
+  const clientId = req.query.clientId;
+  const boardId = req.query.boardId;
+
+  models.task.findByPk(req.params.taskId).then(task => {
+    task.removeLabel(req.params.labelId).then(() => {
+      res.status(204).send();
+      const data = {
+        taskId: req.params.taskId,
+        labelId: req.params.labelId
+      }
+      wss.updateOtherClients(clientId, boardId, data, eventTypes.removeTaskLabel);
+    });
+  });
+});
+
 module.exports = router;

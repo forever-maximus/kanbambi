@@ -199,3 +199,104 @@ export function changeTaskState(taskData, prevTaskIndex, taskPrevStateCol) {
       })
   }
 }
+
+
+export const ADD_TASK_LABEL_REQUEST = 'ADD_TASK_LABEL_REQUEST';
+export const ADD_TASK_LABEL_SUCCESS = 'ADD_TASK_LABEL_SUCCESS';
+export const ADD_TASK_LABEL_FAILURE = 'ADD_TASK_LABEL_FAILURE';
+export const ADD_TASK_LABEL_REFRESH = 'ADD_TASK_LABEL_REFRESH';
+
+function addTaskLabelRequest(taskId, labelId) {
+  return {
+    type: ADD_TASK_LABEL_REQUEST,
+    taskId,
+    labelId
+  }
+}
+
+function addTaskLabelSuccess() {
+  return {
+    type: ADD_TASK_LABEL_SUCCESS
+  }
+}
+
+function addTaskLabelFailure(error) {
+  return {
+    type: ADD_TASK_LABEL_FAILURE,
+    error
+  }
+}
+
+export function addTaskLabelRefresh(taskLabelData) {
+  return {
+    type: ADD_TASK_LABEL_REFRESH,
+    taskId: taskLabelData.taskId,
+    labelId: taskLabelData.labelId
+  }
+}
+
+export function addTaskLabel(taskLabelData) {
+  return (dispatch) => {
+    dispatch(addTaskLabelRequest(taskLabelData.taskId, taskLabelData.labelId));
+
+    const endpoint = '/tasks/' + taskLabelData.taskId + '/labels/' + taskLabelData.labelId;
+    axios.patch(API_ROOT + endpoint, taskLabelData)
+      .then(() => {
+        dispatch(addTaskLabelSuccess());
+      })
+      .catch(error => {
+        dispatch(addTaskLabelFailure(error));
+      });
+  }
+}
+
+
+export const REMOVE_TASK_LABEL_REQUEST = 'REMOVE_TASK_LABEL_REQUEST';
+export const REMOVE_TASK_LABEL_SUCCESS = 'REMOVE_TASK_LABEL_SUCCESS';
+export const REMOVE_TASK_LABEL_FAILURE = 'REMOVE_TASK_LABEL_FAILURE';
+export const REMOVE_TASK_LABEL_REFRESH = 'REMOVE_TASK_LABEL_REFRESH';
+
+function removeTaskLabelRequest(taskId, labelId) {
+  return {
+    type: REMOVE_TASK_LABEL_REQUEST,
+    taskId,
+    labelId
+  }
+}
+
+function removeTaskLabelSuccess() {
+  return {
+    type: REMOVE_TASK_LABEL_SUCCESS
+  }
+}
+
+function removeTaskLabelFailure(error) {
+  return {
+    type: REMOVE_TASK_LABEL_FAILURE,
+    error
+  }
+}
+
+export function removeTaskLabelRefresh(taskLabelData) {
+  return {
+    type: REMOVE_TASK_LABEL_REFRESH,
+    taskId: taskLabelData.taskId,
+    labelId: taskLabelData.labelId
+  }
+}
+
+export function removeTaskLabel(taskLabelData) {
+  return (dispatch) => {
+    dispatch(removeTaskLabelRequest(taskLabelData.taskId, taskLabelData.labelId));
+
+    const endpoint = '/tasks/' + taskLabelData.taskId + '/labels/' + taskLabelData.labelId
+      + '?clientId=' + taskLabelData.clientId + '&boardId=' + taskLabelData.boardId;
+    axios.delete(API_ROOT + endpoint)
+      .then(() => {
+        dispatch(removeTaskLabelSuccess());
+      })
+      .catch(error => {
+        dispatch(removeTaskLabelFailure(error));
+      });
+  }
+}
