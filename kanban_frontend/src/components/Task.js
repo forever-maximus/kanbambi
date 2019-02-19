@@ -11,6 +11,7 @@ const Task = (props) => {
         <LabelList 
           task={props.task} 
           labels={props.labels} 
+          showNames={false}
         />
       );
     }

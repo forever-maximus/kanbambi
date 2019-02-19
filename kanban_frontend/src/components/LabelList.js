@@ -6,7 +6,7 @@ const LabelList = (props) => (
       props.task.labels.map((labelId, key) => {
         return (
           <div key={key} className='task-label' style={{backgroundColor: props.labels[labelId].colour}}>
-            {props.labels[labelId].name}
+            {props.showNames === true ? props.labels[labelId].name : ''}
           </div>
         );
       })

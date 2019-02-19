@@ -25,6 +25,9 @@ class LabelEditorContainer extends Component {
             labels={this.props.labels}
             task={this.props.task}
             updateTaskLabel={this.props.updateTaskLabel}
+            updateLabel={this.props.updateLabel}
+            clientId={this.props.clientId}
+            boardId={this.props.boardId}
           />
         </FocusTrap>
       );

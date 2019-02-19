@@ -34,6 +34,18 @@
   outline: none;
 }
 
+.label-component i.icon.back-button {
+  position: absolute;
+  left: 3px;
+  top: 5px;
+  box-shadow: none;
+  margin: 0px;
+}
+.label-component .back-button:hover {
+  cursor: pointer;
+  background-color: #eaedf0;
+}
+
 .label-component .label-selector-wrapper {
   display: flex;
   margin: 5px 0px;

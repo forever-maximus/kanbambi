@@ -32,6 +32,12 @@ import {
   REMOVE_TASK_LABEL_FAILURE,
   REMOVE_TASK_LABEL_REFRESH
 } from '../actions/task';
+import {
+  UPDATE_LABEL_REQUEST,
+  UPDATE_LABEL_SUCCESS,
+  UPDATE_LABEL_FAILURE,
+  UPDATE_LABEL_REFRESH
+} from '../actions/label';
 import { arrayToObject } from '../utils';
 
 const initialState = {
@@ -373,6 +379,34 @@ export function boardReducer(state = initialState, action) {
       }
 
     case REMOVE_TASK_LABEL_FAILURE:
+    // TODO - if there was an error need to roll back state to show previous state
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    case UPDATE_LABEL_REQUEST:
+    case UPDATE_LABEL_REFRESH:
+      return {
+        ...state,
+        labels: {
+          ...state.labels,
+          [action.label.id]: {
+            ...state.labels[action.label.id],
+            name: action.label.name
+          }
+        }
+      }
+
+    case UPDATE_LABEL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case UPDATE_LABEL_FAILURE:
     // TODO - if there was an error need to roll back state to show previous state
       return {
         ...state,

@@ -13,6 +13,9 @@ app.use('/api/boards', BoardController);
 var TaskController = require('./routes/TaskController');
 app.use('/api/tasks', TaskController);
 
+var LabelController = require('./routes/LabelController');
+app.use('/api/labels', LabelController);
+
 models.sequelize.sync().then(() => {
   app.listen(8080, () => {
     console.log('App listening on port 8080!');

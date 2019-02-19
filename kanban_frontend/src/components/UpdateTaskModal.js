@@ -83,11 +83,15 @@ class UpdateTaskModal extends Component {
                 <LabelList 
                   task={this.props.task}
                   labels={this.props.labels}
+                  showNames={true}
                 />
                 <LabelEditorContainer 
                   labels={this.props.labels} 
                   task={this.props.task} 
                   updateTaskLabel={this.updateTaskLabel}
+                  updateLabel={this.props.updateLabel}
+                  clientId={this.props.clientId}
+                  boardId={this.props.boardId}
                 />
               </div>
             </div>

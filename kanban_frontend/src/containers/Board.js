@@ -15,6 +15,7 @@ import {
   removeTaskLabel,
   removeTaskLabelRefresh
 } from '../actions/task';
+import { updateLabel, updateLabelRefresh } from '../actions/label';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -46,7 +47,9 @@ const mapDispatchToProps = (dispatch) => {
     addTaskLabelRefresh: (taskLabel) => dispatch(addTaskLabelRefresh(taskLabel)),
     removeTaskLabel: (taskLabel) => dispatch(removeTaskLabel(taskLabel)),
     removeTaskLabelRefresh: (taskLabel) => dispatch(removeTaskLabelRefresh(taskLabel)),
-    updateBoard: (id, boardUpdate) => dispatch(updateBoard(id, boardUpdate))
+    updateBoard: (id, boardUpdate) => dispatch(updateBoard(id, boardUpdate)),
+    updateLabel: (labelData) => dispatch(updateLabel(labelData)),
+    updateLabelRefresh: (labelData) => dispatch(updateLabelRefresh(labelData))
   };
 };
 

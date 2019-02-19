@@ -55,7 +55,6 @@ class BoardView extends Component {
       } else if (eventType === 'addTaskLabel') {
         this.props.addTaskLabelRefresh(update_from_backend);
       } else if (eventType === 'removeTaskLabel') {
-        console.log(update_from_backend);
         this.props.removeTaskLabelRefresh(update_from_backend);
       }
     }
@@ -109,6 +108,7 @@ class BoardView extends Component {
           updateTask={this.props.updateTask}
           addTaskLabel={this.props.addTaskLabel}
           removeTaskLabel={this.props.removeTaskLabel}
+          updateLabel={this.props.updateLabel}
           clientId={this.props.clientId}
           boardId={this.props.match.params.id}
         />
