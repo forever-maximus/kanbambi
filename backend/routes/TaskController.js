@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
       stateColumnId: req.body.task.stateColumnId,
       order: req.body.task.order,
     }).then(task => {
+      task.dataValues.labels = [];
       res.status(201).json({task: task});
       wss.updateOtherClients(req.body.clientId, req.body.boardId, task, eventTypes.createTask);
     });

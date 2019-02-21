@@ -100,7 +100,6 @@ export function boardReducer(state = initialState, action) {
     case UPDATE_BOARD_REQUEST:
       return {
         ...state,
-        loading: true,
         board: {
           ...state.board,
           ...action.board
@@ -123,6 +122,7 @@ export function boardReducer(state = initialState, action) {
       } 
 
     case UPDATE_TASK_REQUEST:
+    case UPDATE_TASK_REFRESH:
       return {
         ...state,
         tasks: {
@@ -131,8 +131,7 @@ export function boardReducer(state = initialState, action) {
             ...state.tasks[action.task.id], 
             ...action.task
           }
-        },
-        loading: true
+        }
       }
 
     case UPDATE_TASK_SUCCESS:
@@ -150,22 +149,9 @@ export function boardReducer(state = initialState, action) {
         error: action.error
       }
 
-    case UPDATE_TASK_REFRESH:
-      return {
-        ...state,
-        tasks: {
-          ...state.tasks,
-          [action.task.id]: {
-            ...state.tasks[action.task.id], 
-            ...action.task
-          }
-        }
-      }
-
     case ADD_NEW_TASK_REQUEST:
       return {
-        ...state,
-        loading: true
+        ...state
       }
 
     case ADD_NEW_TASK_SUCCESS:
@@ -194,7 +180,8 @@ export function boardReducer(state = initialState, action) {
         error: action.error
       }
 
-    case REORDER_TASK_REQUEST: {
+    case REORDER_TASK_REQUEST:
+    case REORDER_TASK_REFRESH: {
       // Get the old state column's tasks ordering.
       // Then remove the task from previous index and insert at new index.
       let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks.slice();
@@ -214,7 +201,6 @@ export function boardReducer(state = initialState, action) {
           ...state.tasks,
           [action.task.id]: action.task
         },
-        loading: true
       }
     }
 
@@ -233,73 +219,8 @@ export function boardReducer(state = initialState, action) {
         error: action.error
       }
 
-    case REORDER_TASK_REFRESH: {
-      let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks.slice();
-      newColumnTasks.splice(action.prevTaskIndex, 1);
-      newColumnTasks.splice(action.task.order - 1, 0, action.task.id);
 
-      return {
-        ...state,
-        stateColumns: {
-          ...state.stateColumns,
-          [action.task.stateColumnId]: {
-            ...state.stateColumns[action.task.stateColumnId],
-            tasks: newColumnTasks
-          }
-        },
-        tasks: {
-          ...state.tasks,
-          [action.task.id]: action.task
-        }
-      }
-    }
-
-
-    case CHANGE_TASK_STATE_REQUEST: {
-      // Remove task from previous state column
-      let prevColumnTasks = state.stateColumns[action.taskPrevStateCol].tasks.slice();
-      prevColumnTasks.splice(action.prevTaskIndex, 1);
-
-      // Add task to new state column's tasks
-      let newColumnTasks = state.stateColumns[action.task.stateColumnId].tasks.slice();
-      newColumnTasks.splice(action.task.order - 1, 0, action.task.id);
-
-      return {
-        ...state,
-        stateColumns: {
-          ...state.stateColumns,
-          [action.task.stateColumnId]: {
-            ...state.stateColumns[action.task.stateColumnId],
-            tasks: newColumnTasks
-          },
-          [action.taskPrevStateCol]: {
-            ...state.stateColumns[action.taskPrevStateCol],
-            tasks: prevColumnTasks
-          }
-        },
-        tasks: {
-          ...state.tasks,
-          [action.task.id]: action.task
-        },
-        loading: true
-      }
-    }
-
-    case CHANGE_TASK_STATE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null
-      }
-
-    case CHANGE_TASK_STATE_FAILURE:
-    // TODO - if there was an error need to roll back state to show previous state
-      return {
-        ...state,
-        loading: false,
-        error: action.error
-      }
-
+    case CHANGE_TASK_STATE_REQUEST:
     case CHANGE_TASK_STATE_REFRESH: {
       // Remove task from previous state column
       let prevColumnTasks = state.stateColumns[action.taskPrevStateCol].tasks.slice();
@@ -328,6 +249,21 @@ export function boardReducer(state = initialState, action) {
         }
       }
     }
+
+    case CHANGE_TASK_STATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null
+      }
+
+    case CHANGE_TASK_STATE_FAILURE:
+    // TODO - if there was an error need to roll back state to show previous state
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
 
     case ADD_TASK_LABEL_REQUEST:
     case ADD_TASK_LABEL_REFRESH:
